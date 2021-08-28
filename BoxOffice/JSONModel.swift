@@ -1,44 +1,66 @@
 //
-//  Network.swift
+//  JSONModel.swift
 //  BoxOffice
 //
 //  Created by 김인환 on 2021/08/27.
 //
 
 import Foundation
-
+import UIKit
 /* MARK: - Movie List
  {
-    "title": "신과함께-죄와벌",
-    "reservation_grade": 1,
-    "thumb": "http://movie.phinf.naver.net/20171201_181/1512109983114kcQVl_JPEG/movie_image.jpg?type=m99_141_2",
-    "id": "5a54c286e8a71d136fb5378e",
-    "reservation_rate": 35.5,
-    "user_rating": 7.98,
-    "grade": 12,
-    "date": "2017-12-20"
-},
- */
+   order_type:1,
+   movies: [
+     {
+       grade: 12,
+       thumb: "http://movie.phinf.naver.net/20171201_181/1512109983114kcQVl_JPEG/movie_image.jpg?type=m99_141_2",
+       reservation_grade: 1,
+       title: "신과함께-죄와벌",
+       reservation_rate: 35.5,
+       user_rating: 7.98,
+       date: "2017-12-20",
+       id: "5a54c286e8a71d136fb5378e"
+     },
+     {
+       grade: 12,
+       thumb: "http://movie2.phinf.naver.net/20170925_296/150631600340898aUX_JPEG/movie_imag.jpg?type=m99_141_2",
+       reservation_grade: 2, title: "저스티스 리그", reservation_rate: 12.63, user_rating: 7.8,
+       date: "2017-11-15",
+       id: "5a54c1e9e8a71d136fb5376c"
+     }
+   ]
+ }
+*/
 
-struct MovieListData: Codable {
-    var title: String
-    var reservationGrade: Int
+struct MovieListDataResponse: Codable {
+    var orderType: Int
+    var movies: [Movie]
+    
+    enum CodingKeys: String, CodingKey {
+        case orderType = "order_type"
+        case movies
+    }
+}
+
+struct Movie: Codable {
+    var grade: Int
     var thumbnailURL: URL
-    var id: String
+    var reservationGrade: Int
+    var title: String
     var reservationRate: Float
     var userRating: Float
-    var grade: Int
-    var date: Date
+    var date: String
+    var id: String
     
-    enum MovieListData: String, CodingKey {
-        case title
-        case reservationGrade = "reservation_grade"
+    enum CodingKeys: String, CodingKey {
+        case grade
         case thumbnailURL = "thumb"
-        case id
+        case reservationGrade = "reservation_grade"
+        case title
         case reservationRate = "reservation_rate"
         case userRating = "user_rating"
-        case grade
         case date
+        case id
     }
 }
 
@@ -79,7 +101,7 @@ struct MovieData {
     var synopsis: String
     var genre: String
     
-    enum MovieData: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case audience
         case grade
         case actor
@@ -115,7 +137,7 @@ struct comment {
     var movieID: String
     var contents: String
     
-    enum comment: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case id
         case rating
         case timestamp

@@ -9,6 +9,8 @@ import UIKit
 
 class MovieTableViewCell: UITableViewCell {
     
+    static let identifier: String = "MovieTableViewCell"
+    
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var rateLabel: UILabel!
