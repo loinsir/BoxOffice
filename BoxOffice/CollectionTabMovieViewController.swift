@@ -12,7 +12,7 @@ class CollectionTabMovieViewController: UIViewController {
     @IBOutlet var arrangeButton: UIBarButtonItem!
     
     @IBAction func touchArrangeButton(_ sender: UIBarButtonItem) {
-        showAlertController(viewController: self)
+//        showAlertController(viewController: self)
     }
 
     override func viewDidLoad() {

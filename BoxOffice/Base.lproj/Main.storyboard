@@ -37,30 +37,30 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="PTM-Xf-Dcg">
-                                                    <rect key="frame" x="143.5" y="28" width="127.5" height="98.5"/>
+                                                    <rect key="frame" x="107" y="28" width="287" height="98.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MovieTitleLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="56j-yP-T95">
-                                                            <rect key="frame" x="0.0" y="0.0" width="127.5" height="28.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="127.5" height="32.5"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RateLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bh0-3H-dRI">
-                                                            <rect key="frame" x="0.0" y="33.5" width="76" height="28"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RateLabel" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bh0-3H-dRI">
+                                                            <rect key="frame" x="0.0" y="37.5" width="60.5" height="25"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="openDateLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CAN-uY-uUY">
-                                                            <rect key="frame" x="0.0" y="66.5" width="115.5" height="32"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <rect key="frame" x="0.0" y="67.5" width="92" height="31"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                 </stackView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SgL-H2-Mnl">
-                                                    <rect key="frame" x="276" y="28" width="28" height="28.5"/>
+                                                    <rect key="frame" x="239.5" y="28" width="32" height="32.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="SgL-H2-Mnl" secondAttribute="height" multiplier="1:1" id="eAy-Fs-ICa"/>
                                                     </constraints>
@@ -70,12 +70,11 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" secondItem="UFO-78-3ZJ" secondAttribute="height" multiplier="1.1" id="19g-Zg-hhW"/>
                                                 <constraint firstItem="PTM-Xf-Dcg" firstAttribute="centerY" secondItem="UFO-78-3ZJ" secondAttribute="centerY" id="7bc-bt-57p"/>
-                                                <constraint firstItem="PTM-Xf-Dcg" firstAttribute="centerX" secondItem="HkJ-8Y-mzz" secondAttribute="centerX" id="I61-0c-xRk"/>
+                                                <constraint firstAttribute="trailing" secondItem="PTM-Xf-Dcg" secondAttribute="trailing" constant="20" symbolic="YES" id="G4g-Dp-dDa"/>
                                                 <constraint firstItem="UFO-78-3ZJ" firstAttribute="centerX" secondItem="HkJ-8Y-mzz" secondAttribute="centerX" multiplier="0.25" id="YlQ-1b-diB"/>
                                                 <constraint firstItem="SgL-H2-Mnl" firstAttribute="centerY" secondItem="56j-yP-T95" secondAttribute="centerY" id="Zes-MV-sai"/>
                                                 <constraint firstItem="SgL-H2-Mnl" firstAttribute="leading" secondItem="56j-yP-T95" secondAttribute="trailing" constant="5" id="bMD-gA-LaS"/>
-                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="PTM-Xf-Dcg" secondAttribute="trailing" constant="5" id="bb7-Kn-8Aw"/>
-                                                <constraint firstItem="PTM-Xf-Dcg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UFO-78-3ZJ" secondAttribute="trailing" constant="5" id="edj-vp-ELg"/>
+                                                <constraint firstItem="PTM-Xf-Dcg" firstAttribute="leading" secondItem="UFO-78-3ZJ" secondAttribute="trailing" constant="5" id="edj-vp-ELg"/>
                                                 <constraint firstItem="PTM-Xf-Dcg" firstAttribute="centerY" secondItem="HkJ-8Y-mzz" secondAttribute="centerY" id="ngd-vi-XkX"/>
                                                 <constraint firstItem="SgL-H2-Mnl" firstAttribute="height" secondItem="56j-yP-T95" secondAttribute="height" id="pFw-1b-OhJ"/>
                                                 <constraint firstItem="UFO-78-3ZJ" firstAttribute="centerY" secondItem="HkJ-8Y-mzz" secondAttribute="centerY" id="poV-Ue-w5E"/>

@@ -62,6 +62,19 @@ struct Movie: Codable {
         case date
         case id
     }
+    
+    var rateString: String {
+        return "평점 : \(userRating) 예매순위 : \(reservationGrade) 예매율: \(reservationRate)"
+    }
+}
+
+/* singleton object*/
+class MovieListData {
+    
+    static let shared = MovieListData()
+    var data: [Movie]?
+    
+    private init() {}
 }
 
 /* MARK: - Movie Data

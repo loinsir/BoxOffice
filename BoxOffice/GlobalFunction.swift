@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-func showAlertController(viewController: UIViewController) {
+func showAlertController(viewController: UIViewController, handler: @escaping () -> Void) {
     var controllerTitle: String = ""
     
     let alertController: UIAlertController = {
@@ -26,5 +26,8 @@ func showAlertController(viewController: UIViewController) {
         return controller
     }()
     
-    viewController.present(alertController, animated: true, completion: {viewController.title = controllerTitle})
+    viewController.present(alertController, animated: true, completion: {
+        viewController.title = controllerTitle
+//        handler()
+    })
 }
