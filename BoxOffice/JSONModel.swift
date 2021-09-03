@@ -77,7 +77,6 @@ class MovieListData {
     
     static let shared = MovieListData()
     var data: [Movie]?
-    var imageData: [Data]?
     
     private init() {}
 }

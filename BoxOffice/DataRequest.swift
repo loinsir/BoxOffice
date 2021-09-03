@@ -28,17 +28,7 @@ func requestMovieDatas(orderType: OrderType) {
         do {
             let apiResponse: MovieListDataResponse = try JSONDecoder().decode(MovieListDataResponse.self, from: data)
             MovieListData.shared.data = apiResponse.movies
-            var imageDatas: [Data] = []
-            MovieListData.shared.data?.forEach({data in
-                do {
-                    let thumbnailData = try Data(contentsOf: data.thumbnailURL)
-                    imageDatas.append(thumbnailData)
-                } catch (let err) {
-                    print(err.localizedDescription)
-                }
-            })
-            MovieListData.shared.imageData = imageDatas
-            NotificationCenter.default.post(name: DidReceiveMovieImageDataNotification, object: nil, userInfo: ["movies": apiResponse.movies])
+            NotificationCenter.default.post(name: DidReceiveMovieImageDataNotification, object: nil, userInfo: ["MovieListData": apiResponse.movies])
         } catch (let err) {
             print(err.localizedDescription)
         }

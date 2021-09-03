@@ -15,13 +15,10 @@ class CollectionTabMovieViewController: UIViewController {
     var imageData: [Data] = []
     
     @IBAction func touchArrangeButton(_ sender: UIBarButtonItem) {
-//        showAlertController(viewController: self)
+        showAlertController(viewController: self)
     }
     
     @objc func didReceiveMovieImageDataNotification(_ noti: Notification) {
-        guard let datas: [Data] = MovieListData.shared.imageData else { return }
-        self.imageData = datas
-        
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
@@ -47,8 +44,6 @@ class CollectionTabMovieViewController: UIViewController {
         // Do any additional setup after loading the view.
         layoutCollectionView()
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveMovieImageDataNotification(_:)), name: DidReceiveMovieImageDataNotification, object: nil)
-        guard let imageData = MovieListData.shared.imageData else { return }
-        self.imageData = imageData
     }
     /*
     // MARK: - Navigation
@@ -89,7 +84,6 @@ extension CollectionTabMovieViewController: UICollectionViewDataSource {
             cell.gradeImage.image = nil
         }
         
-        cell.posterImage.image = UIImage(data: imageData[indexPath.item])
         return cell
     }
 }
@@ -97,5 +91,24 @@ extension CollectionTabMovieViewController: UICollectionViewDataSource {
 extension CollectionTabMovieViewController: UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell: MovieCollectionViewCell = cell as? MovieCollectionViewCell else { return }
+        DispatchQueue.global().async {
+            guard let url = MovieListData.shared.data?[indexPath.item].thumbnailURL else { return }
+            do {
+                let data: Data = try Data(contentsOf: url)
+                guard let image: UIImage = UIImage(data: data) else { return }
+                DispatchQueue.main.async {
+                    guard let index: IndexPath = self.collectionView.indexPath(for: cell) else { return }
+                    if index.item == indexPath.item {
+                        cell.posterImage.image = image
+                    }
+                }
+            } catch (let err) {
+                print(err.localizedDescription)
+            }
+        }
     }
 }
