@@ -11,28 +11,26 @@ class TableTabMovieViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var arrangeButton: UIBarButtonItem!
+    var imageData: [Data] = []
     
     @IBAction func touchArrangeButton(_ sender: UIBarButtonItem) {
-        let currentTitle: String? = self.title
-        showAlertController(viewController: self) {
-            if self.title != currentTitle {
-                switch self.title {
-                case "예매율":
-                    self.requestMovieDatas(orderType: .ticketingRate)
-                case "큐레이션":
-                    self.requestMovieDatas(orderType: .curation)
-                case "개봉일":
-                    self.requestMovieDatas(orderType: .openDate)
-                default:
-                    break
-                }
-            }
+        showAlertController(viewController: self)
+    }
+    
+    @objc func didReceiveMovieImageDataNotification(_ noti: Notification) {
+        guard let datas: [Data] = MovieListData.shared.imageData else { return }
+        self.imageData = datas
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.title = "예매율"
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveMovieImageDataNotification(_:)), name: DidReceiveMovieImageDataNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,28 +38,6 @@ class TableTabMovieViewController: UIViewController {
         requestMovieDatas(orderType: .curation)
     }
     
-    func requestMovieDatas(orderType: OrderType) {
-        guard let url: URL = URL(string: "https://connect-boxoffice.run.goorm.io/movies?order_type=\(orderType.rawValue)") else { return }
-
-        let dataTask = URLSession.shared.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
-            
-            if let err = error {
-                print(err.localizedDescription)
-            }
-            
-            guard let data = data else { return }
-            do {
-                let apiResponse: MovieListDataResponse = try JSONDecoder().decode(MovieListDataResponse.self, from: data)
-                MovieListData.shared.data = apiResponse.movies
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            } catch (let err) {
-                print(err.localizedDescription)
-            }
-        }
-        dataTask.resume()
-    }
 }
 
 extension TableTabMovieViewController: UITableViewDataSource {
@@ -72,26 +48,10 @@ extension TableTabMovieViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell: MovieTableViewCell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier) as? MovieTableViewCell else { return UITableViewCell() }
         
-        DispatchQueue.global().async {
-            if let url: URL = MovieListData.shared.data?[indexPath.row].thumbnailURL {
-                do {
-                    let data: Data = try Data(contentsOf: url)
-                    DispatchQueue.main.async {
-                        if let index: IndexPath = self.tableView.indexPath(for: cell) {
-                            if index.row == indexPath.row {
-                                cell.posterImage.image = UIImage(data: data)
-                            }
-                        }
-                    }
-                } catch (let err) {
-                    print(err.localizedDescription)
-                }
-            }
-        }
-        
         cell.movieTitleLabel.text = MovieListData.shared.data?[indexPath.row].title
         cell.rateLabel.text = MovieListData.shared.data?[indexPath.row].rateString
-        cell.openDateLabel.text = MovieListData.shared.data?[indexPath.row].date
+        cell.openDateLabel.text = MovieListData.shared.data?[indexPath.row].openDateString
+        cell.posterImage.image = UIImage(data: imageData[indexPath.item])
         
         guard let grade: Int = MovieListData.shared.data?[indexPath.row].grade else { return UITableViewCell() }
         switch grade {
@@ -106,7 +66,7 @@ extension TableTabMovieViewController: UITableViewDataSource {
         default:
             cell.gradeImage.image = nil
         }
-        
+
         return cell
     }
 }

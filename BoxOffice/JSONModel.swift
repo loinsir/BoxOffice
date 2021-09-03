@@ -66,6 +66,10 @@ struct Movie: Codable {
     var rateString: String {
         return "평점 : \(userRating) 예매순위 : \(reservationGrade) 예매율: \(reservationRate)"
     }
+    
+    var openDateString: String {
+        return "개봉일 : \(date)"
+    }
 }
 
 /* singleton object*/
@@ -73,6 +77,7 @@ class MovieListData {
     
     static let shared = MovieListData()
     var data: [Movie]?
+    var imageData: [Data]?
     
     private init() {}
 }

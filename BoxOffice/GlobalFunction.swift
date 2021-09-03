@@ -8,14 +8,23 @@
 import Foundation
 import UIKit
 
-func showAlertController(viewController: UIViewController, handler: @escaping () -> Void) {
+func showAlertController(viewController: UIViewController) {
     var controllerTitle: String = ""
     
     let alertController: UIAlertController = {
         let controller: UIAlertController = UIAlertController(title: "정렬방식 선택", message: "영화를 어떤 순서로 정렬할까요?", preferredStyle: .actionSheet)
-        let ticketingRateAction: UIAlertAction = UIAlertAction(title: "예매율", style: .default, handler: {_ in controllerTitle = "예매율"})
-        let curationAction: UIAlertAction = UIAlertAction(title: "큐레이션", style: .default, handler: {_ in controllerTitle = "큐레이션"})
-        let openingDateAction: UIAlertAction = UIAlertAction(title: "개봉일", style: .default, handler: {_ in controllerTitle = "개봉일"})
+        let ticketingRateAction: UIAlertAction = UIAlertAction(title: "예매율", style: .default, handler: {_ in
+                                                                controllerTitle = "예매율"
+            requestMovieDatas(orderType: .ticketingRate)
+        })
+        let curationAction: UIAlertAction = UIAlertAction(title: "큐레이션", style: .default, handler: {_ in
+                                                            controllerTitle = "큐레이션"
+            requestMovieDatas(orderType: .curation)
+        })
+        let openingDateAction: UIAlertAction = UIAlertAction(title: "개봉일", style: .default, handler: {_ in
+                                                                controllerTitle = "개봉일"
+            requestMovieDatas(orderType: .openDate)
+        })
         let cancelAction: UIAlertAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         
         controller.addAction(ticketingRateAction)
@@ -28,6 +37,6 @@ func showAlertController(viewController: UIViewController, handler: @escaping ()
     
     viewController.present(alertController, animated: true, completion: {
         viewController.title = controllerTitle
-//        handler()
+
     })
 }
