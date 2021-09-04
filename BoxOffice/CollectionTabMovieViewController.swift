@@ -9,18 +9,26 @@ import UIKit
 
 class CollectionTabMovieViewController: UIViewController {
     
-    @IBOutlet var arrangeButton: UIBarButtonItem!
     @IBOutlet var collectionView: UICollectionView!
     
     var imageData: [Data] = []
     
-    @IBAction func touchArrangeButton(_ sender: UIBarButtonItem) {
-        showAlertController(viewController: self)
-    }
-    
     @objc func didReceiveMovieImageDataNotification(_ noti: Notification) {
+        guard let orderType: OrderType = noti.userInfo?["orderType"] as? OrderType else { return }
+        
+        var newTitle: String = ""
+        switch orderType {
+        case .curation:
+            newTitle = "큐레이션"
+        case .ticketingRate:
+            newTitle = "예매율"
+        case .openDate:
+            newTitle = "개봉일"
+        }
+        
         DispatchQueue.main.async {
             self.collectionView.reloadData()
+            self.navigationItem.title = newTitle
         }
     }
     
@@ -66,7 +74,7 @@ extension CollectionTabMovieViewController: UICollectionViewDataSource {
         guard let cell: MovieCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCollectionViewCell.identifier, for: indexPath) as? MovieCollectionViewCell else { return UICollectionViewCell() }
         
         cell.movieTitleLabel.text = MovieListData.shared.data?[indexPath.item].title
-        cell.rateLabel.text = MovieListData.shared.data?[indexPath.item].rateString
+        cell.rateLabel.text = MovieListData.shared.data?[indexPath.item].collectionCellRateString
         cell.openDateLabel.text = MovieListData.shared.data?[indexPath.item].date
         
         guard let grade: Int = MovieListData.shared.data?[indexPath.item].grade else { return UICollectionViewCell() }

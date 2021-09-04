@@ -63,8 +63,12 @@ struct Movie: Codable {
         case id
     }
     
-    var rateString: String {
+    var tableCellRateString: String {
         return "평점 : \(userRating) 예매순위 : \(reservationGrade) 예매율: \(reservationRate)"
+    }
+    
+    var collectionCellRateString: String {
+        return "\(reservationGrade)위(\(userRating)) / \(reservationRate)"
     }
     
     var openDateString: String {

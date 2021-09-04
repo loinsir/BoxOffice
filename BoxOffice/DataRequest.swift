@@ -5,7 +5,7 @@
 //  Created by 김인환 on 2021/08/28.
 //
 
-import Foundation
+import UIKit
 
 let DidReceiveMovieImageDataNotification: Notification.Name = Notification.Name("DidReceiveMovieListData")
 
@@ -28,7 +28,7 @@ func requestMovieDatas(orderType: OrderType) {
         do {
             let apiResponse: MovieListDataResponse = try JSONDecoder().decode(MovieListDataResponse.self, from: data)
             MovieListData.shared.data = apiResponse.movies
-            NotificationCenter.default.post(name: DidReceiveMovieImageDataNotification, object: nil, userInfo: ["MovieListData": apiResponse.movies])
+            NotificationCenter.default.post(name: DidReceiveMovieImageDataNotification, object: nil, userInfo: ["orderType": orderType])
         } catch (let err) {
             print(err.localizedDescription)
         }

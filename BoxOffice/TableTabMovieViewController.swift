@@ -10,23 +10,31 @@ import UIKit
 class TableTabMovieViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet var arrangeButton: UIBarButtonItem!
+
     var imageData: [Data] = []
     
-    @IBAction func touchArrangeButton(_ sender: UIBarButtonItem) {
-        showAlertController(viewController: self)
-    }
-    
     @objc func didReceiveMovieImageDataNotification(_ noti: Notification) {
+        guard let orderType: OrderType = noti.userInfo?["orderType"] as? OrderType else { return }
+        
+        var newTitle: String = ""
+        switch orderType {
+        case .curation:
+            newTitle = "큐레이션"
+        case .ticketingRate:
+            newTitle = "예매율"
+        case .openDate:
+            newTitle = "개봉일"
+        }
+        
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.navigationItem.title = newTitle
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.title = "예매율"
         NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveMovieImageDataNotification(_:)), name: DidReceiveMovieImageDataNotification, object: nil)
         requestMovieDatas(orderType: .curation)
     }
@@ -42,7 +50,7 @@ extension TableTabMovieViewController: UITableViewDataSource {
         guard let cell: MovieTableViewCell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier) as? MovieTableViewCell else { return UITableViewCell() }
         
         cell.movieTitleLabel.text = MovieListData.shared.data?[indexPath.row].title
-        cell.rateLabel.text = MovieListData.shared.data?[indexPath.row].rateString
+        cell.rateLabel.text = MovieListData.shared.data?[indexPath.row].tableCellRateString
         cell.openDateLabel.text = MovieListData.shared.data?[indexPath.row].openDateString
         
         guard let grade: Int = MovieListData.shared.data?[indexPath.row].grade else { return UITableViewCell() }
