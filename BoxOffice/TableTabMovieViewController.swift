@@ -30,6 +30,7 @@ class TableTabMovieViewController: UIViewController {
         DispatchQueue.main.async {
             self.tableView.reloadData()
             self.navigationItem.title = newTitle
+            self.indicator.isHidden = true
         }
     }
     
@@ -62,10 +63,7 @@ class TableTabMovieViewController: UIViewController {
         
         guard let cell: MovieListTableViewCell = sender as? MovieListTableViewCell else { return }
         
-        destination.posterImageToSet = cell.imageView?.image
-        destination.openDateToSet = cell.openDateLabel.text
-        destination.movieTitleToSet = cell.movieTitleLabel.text
-        destination.gradeImageToSet = cell.gradeImage.image
+        destination.id = cell.id
     }
     
 }
@@ -81,6 +79,7 @@ extension TableTabMovieViewController: UITableViewDataSource {
         cell.movieTitleLabel.text = MovieListData.shared.data?[indexPath.row].title
         cell.rateLabel.text = MovieListData.shared.data?[indexPath.row].tableCellRateString
         cell.openDateLabel.text = MovieListData.shared.data?[indexPath.row].openDateString
+        cell.id = MovieListData.shared.data?[indexPath.row].id
         
         guard let grade: Int = MovieListData.shared.data?[indexPath.row].grade else { return UITableViewCell() }
         switch grade {
@@ -126,9 +125,5 @@ extension TableTabMovieViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
     }
 }

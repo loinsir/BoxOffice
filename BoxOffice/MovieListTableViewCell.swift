@@ -17,6 +17,8 @@ class MovieListTableViewCell: UITableViewCell {
     @IBOutlet weak var openDateLabel: UILabel!
     @IBOutlet weak var gradeImage: UIImageView!
     
+    var id: String! 
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

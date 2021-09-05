@@ -106,7 +106,7 @@ class MovieListData {
  }
  */
 
-struct MovieData {
+struct MovieData: Codable {
     var audience: Int
     var grade: Int
     var actor: String
@@ -115,7 +115,7 @@ struct MovieData {
     var title: String
     var reservationRate: Float
     var userRating: Float
-    var date: Date
+    var date: String
     var director: String
     var id: String
     var imageURL: URL
@@ -137,6 +137,10 @@ struct MovieData {
         case imageURL = "image"
         case synopsis
         case genre
+    }
+    
+    var genreAndTime: String {
+        return "\(genre) / \(duration)분"
     }
 }
 

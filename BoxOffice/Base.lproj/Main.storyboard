@@ -154,13 +154,13 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="openDateLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y9E-9f-AzT">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="openDateLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y9E-9f-AzT">
                                                     <rect key="frame" x="0.0" y="25.333333333333336" width="121.33333333333333" height="20.333333333333336"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="genreTimeLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGB-JP-mLM">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="genreTimeLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGB-JP-mLM">
                                                     <rect key="frame" x="0.0" y="50.666666666666664" width="121.33333333333333" height="20.333333333333336"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -300,6 +300,7 @@
                                         <constraint firstItem="XeO-zV-faf" firstAttribute="leading" secondItem="Lst-0X-Ljr" secondAttribute="trailing" constant="15" id="KpX-mz-ex5"/>
                                         <constraint firstItem="Iwv-9m-GLM" firstAttribute="centerY" secondItem="Qbx-Ca-4Sa" secondAttribute="centerY" id="M7n-pg-TWA"/>
                                         <constraint firstItem="1Gl-wn-Bdy" firstAttribute="top" secondItem="Lst-0X-Ljr" secondAttribute="bottom" constant="10" id="aF7-XO-VbR"/>
+                                        <constraint firstItem="Y9E-9f-AzT" firstAttribute="centerY" secondItem="Lst-0X-Ljr" secondAttribute="centerY" multiplier="1.2" id="l1B-7U-qqQ"/>
                                         <constraint firstItem="Iwv-9m-GLM" firstAttribute="leading" secondItem="Qbx-Ca-4Sa" secondAttribute="trailing" constant="10" id="lV4-2X-ab9"/>
                                         <constraint firstItem="XeO-zV-faf" firstAttribute="centerY" secondItem="Lst-0X-Ljr" secondAttribute="centerY" multiplier="1.2" id="mFF-er-Zbi"/>
                                         <constraint firstItem="1Gl-wn-Bdy" firstAttribute="centerX" secondItem="lhb-Wb-xlj" secondAttribute="centerX" id="qDs-Gt-LTS"/>
