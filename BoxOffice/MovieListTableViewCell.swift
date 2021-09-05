@@ -7,9 +7,9 @@
 
 import UIKit
 
-class MovieTableViewCell: UITableViewCell {
+class MovieListTableViewCell: UITableViewCell {
     
-    static let identifier: String = "MovieTableViewCell"
+    static let identifier: String = "MovieListTableViewCell"
     
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!

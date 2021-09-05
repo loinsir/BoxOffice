@@ -10,6 +10,7 @@ import UIKit
 class TableTabMovieViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
 
     var imageData: [Data] = []
     
@@ -32,11 +33,39 @@ class TableTabMovieViewController: UIViewController {
         }
     }
     
+    func layoutTableView() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+        ])
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveMovieImageDataNotification(_:)), name: DidReceiveMovieImageDataNotification, object: nil)
         requestMovieDatas(orderType: .curation)
+        layoutTableView()
+    }
+    
+    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        guard let destination: MovieDetailTableViewController = segue.destination as? MovieDetailTableViewController else { return }
+        
+        guard let cell: MovieListTableViewCell = sender as? MovieListTableViewCell else { return }
+        
+        destination.posterImageToSet = cell.imageView?.image
+        destination.openDateToSet = cell.openDateLabel.text
+        destination.movieTitleToSet = cell.movieTitleLabel.text
+        destination.gradeImageToSet = cell.gradeImage.image
     }
     
 }
@@ -47,7 +76,7 @@ extension TableTabMovieViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: MovieTableViewCell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier) as? MovieTableViewCell else { return UITableViewCell() }
+        guard let cell: MovieListTableViewCell = tableView.dequeueReusableCell(withIdentifier: MovieListTableViewCell.identifier) as? MovieListTableViewCell else { return UITableViewCell() }
         
         cell.movieTitleLabel.text = MovieListData.shared.data?[indexPath.row].title
         cell.rateLabel.text = MovieListData.shared.data?[indexPath.row].tableCellRateString
@@ -77,7 +106,7 @@ extension TableTabMovieViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let cell: MovieTableViewCell = cell as? MovieTableViewCell else { return }
+        guard let cell: MovieListTableViewCell = cell as? MovieListTableViewCell else { return }
         DispatchQueue.global().async {
             guard let url = MovieListData.shared.data?[indexPath.row].thumbnailURL else { return }
             do {
@@ -93,5 +122,13 @@ extension TableTabMovieViewController: UITableViewDelegate {
                 print(err.localizedDescription)
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
     }
 }

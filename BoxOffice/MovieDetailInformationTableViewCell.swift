@@ -1,31 +1,25 @@
 //
-//  MovieDetailTableViewCell.swift
+//  MovieDetailInformationTableViewCell.swift
 //  BoxOffice
 //
-//  Created by 김인환 on 2021/09/04.
+//  Created by 김인환 on 2021/09/05.
 //
 
 import UIKit
 
-class MovieDetailTableViewCell: UITableViewCell {
+class MovieDetailInformationTableViewCell: UITableViewCell {
+    
+    static let identifier: String = "informationCell"
 
-    // MARK: - IBOutlet
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var openDateLabel: UILabel!
-    @IBOutlet weak var genreAndTimeLabel: UILabel!
-    
+    @IBOutlet weak var genreTimeLabel: UILabel!
     @IBOutlet weak var reservationRateLabel: UILabel!
-    @IBOutlet weak var rateLabel: UILabel!
-    @IBOutlet weak var starRateImageStack: UIStackView!
+    @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var audienceLabel: UILabel!
+    @IBOutlet weak var gradeImageView: UIImageView!
     
-    @IBOutlet weak var synopsisTextView: UITextView!
-    
-    @IBOutlet weak var directorLabel: UILabel!
-    @IBOutlet weak var actorListLabel: UILabel!
-    
-    @IBOutlet weak var commentTableView: UITableView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
