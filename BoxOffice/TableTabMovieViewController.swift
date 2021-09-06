@@ -14,6 +14,10 @@ class TableTabMovieViewController: UIViewController {
 
     var imageData: [Data] = []
     
+    @objc func didRequestMovieImageDataNotification(_ noti: Notification) {
+        self.indicator.isHidden = false
+    }
+    
     @objc func didReceiveMovieImageDataNotification(_ noti: Notification) {
         guard let orderType: OrderType = noti.userInfo?["orderType"] as? OrderType else { return }
         
@@ -48,6 +52,7 @@ class TableTabMovieViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveMovieImageDataNotification(_:)), name: DidReceiveMovieImageDataNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didRequestMovieImageDataNotification(_:)), name: DidRequestMovieImageDataNotification, object: nil)
         requestMovieDatas(orderType: .curation)
         layoutTableView()
     }

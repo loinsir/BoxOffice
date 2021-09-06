@@ -10,8 +10,13 @@ import UIKit
 class CollectionTabMovieViewController: UIViewController {
     
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet var indicator: UIActivityIndicatorView!
     
     var imageData: [Data] = []
+    
+    @objc func didRequestMovieImageDataNotification(_ noti: Notification) {
+        self.indicator.isHidden = false
+    }
     
     @objc func didReceiveMovieImageDataNotification(_ noti: Notification) {
         guard let orderType: OrderType = noti.userInfo?["orderType"] as? OrderType else { return }
@@ -29,6 +34,7 @@ class CollectionTabMovieViewController: UIViewController {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
             self.navigationItem.title = newTitle
+            self.indicator.isHidden = true
         }
     }
     
@@ -51,7 +57,9 @@ class CollectionTabMovieViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         layoutCollectionView()
+        NotificationCenter.default.addObserver(self, selector: #selector(didRequestMovieImageDataNotification(_:)), name: DidRequestMovieImageDataNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveMovieImageDataNotification(_:)), name: DidReceiveMovieImageDataNotification, object: nil)
+        indicator.isHidden = true
     }
     /*
     // MARK: - Navigation

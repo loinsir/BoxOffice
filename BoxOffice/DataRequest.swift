@@ -7,6 +7,7 @@
 
 import UIKit
 
+let DidRequestMovieImageDataNotification: Notification.Name = Notification.Name("DidRequestMovieListData")
 let DidReceiveMovieImageDataNotification: Notification.Name = Notification.Name("DidReceiveMovieListData")
 
 enum OrderType: Int {
@@ -18,6 +19,7 @@ enum OrderType: Int {
 func requestMovieDatas(orderType: OrderType) {
     guard let url: URL = URL(string: "https://connect-boxoffice.run.goorm.io/movies?order_type=\(orderType.rawValue)") else { return }
 
+    NotificationCenter.default.post(name: DidRequestMovieImageDataNotification, object: nil)
     let dataTask = URLSession.shared.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
         
         if let err = error {

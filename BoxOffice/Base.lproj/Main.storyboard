@@ -461,6 +461,7 @@
                     <tabBarItem key="tabBarItem" title="Collection" image="ic_collection" id="StZ-Rs-OeB"/>
                     <connections>
                         <outlet property="collectionView" destination="yCF-za-xU3" id="2bA-Fh-ElC"/>
+                        <outlet property="indicator" destination="EPh-wl-LeS" id="Dyd-jh-cuv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h3a-7T-IqM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -521,7 +522,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="C3e-4u-MsO"/>
+        <segue reference="LGG-jK-8nl"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="ic_collection" width="25" height="25"/>
