@@ -96,6 +96,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		19B0EED526E907620093DB8E /* TableTab */ = {
+			isa = PBXGroup;
+			children = (
+				19B2475F26D8C6BF00DB10D8 /* MovieListTableViewCell.swift */,
+				19B2472F26D52FF700DB10D8 /* TableTabMovieViewController.swift */,
+			);
+			path = TableTab;
+			sourceTree = "<group>";
+		};
+		19B0EED626E907C10093DB8E /* CollectionTab */ = {
+			isa = PBXGroup;
+			children = (
+				19B2475B26D8B82D00DB10D8 /* CollectionTabMovieViewController.swift */,
+				1997DFC226DDDCFA00CCE172 /* MovieCollectionViewCell.swift */,
+			);
+			path = CollectionTab;
+			sourceTree = "<group>";
+		};
+		19B0EED726E907F30093DB8E /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				197D897126E3764600B1E7B6 /* CommentTableViewCell.swift */,
+				197D897526E3C52600B1E7B6 /* MovieDetailTableViewController.swift */,
+				197D897926E485F300B1E7B6 /* MovieDetailInformationTableViewCell.swift */,
+			);
+			path = DetailView;
+			sourceTree = "<group>";
+		};
 		19B2471F26D52FF700DB10D8 = {
 			isa = PBXGroup;
 			children = (
@@ -121,17 +149,13 @@
 			children = (
 				19B2472B26D52FF700DB10D8 /* AppDelegate.swift */,
 				19B2472D26D52FF700DB10D8 /* SceneDelegate.swift */,
-				19B2472F26D52FF700DB10D8 /* TableTabMovieViewController.swift */,
 				19B2475D26D8C23400DB10D8 /* GlobalFunction.swift */,
 				1997DFC026DA242600CCE172 /* DataRequest.swift */,
-				19B2475B26D8B82D00DB10D8 /* CollectionTabMovieViewController.swift */,
-				19B2473126D52FF700DB10D8 /* Main.storyboard */,
-				197D897526E3C52600B1E7B6 /* MovieDetailTableViewController.swift */,
 				197D897326E3BF8A00B1E7B6 /* TabBarViewController.swift */,
-				1997DFC226DDDCFA00CCE172 /* MovieCollectionViewCell.swift */,
-				197D897126E3764600B1E7B6 /* CommentTableViewCell.swift */,
-				19B2475F26D8C6BF00DB10D8 /* MovieListTableViewCell.swift */,
-				197D897926E485F300B1E7B6 /* MovieDetailInformationTableViewCell.swift */,
+				19B0EED726E907F30093DB8E /* DetailView */,
+				19B0EED626E907C10093DB8E /* CollectionTab */,
+				19B0EED526E907620093DB8E /* TableTab */,
+				19B2473126D52FF700DB10D8 /* Main.storyboard */,
 				19B2473426D52FF700DB10D8 /* Assets.xcassets */,
 				19B2473626D52FF700DB10D8 /* LaunchScreen.storyboard */,
 				19B2473926D52FF700DB10D8 /* Info.plist */,
