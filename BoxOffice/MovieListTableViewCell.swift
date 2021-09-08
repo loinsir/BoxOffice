@@ -11,6 +11,7 @@ class MovieListTableViewCell: UITableViewCell {
     
     static let identifier: String = "MovieListTableViewCell"
     
+    var imageData: Data!
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var rateLabel: UILabel!

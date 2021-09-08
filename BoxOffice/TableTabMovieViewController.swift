@@ -38,6 +38,11 @@ class TableTabMovieViewController: UIViewController {
         }
     }
     
+    @objc func pullingTableView(_ sender: UIRefreshControl) {
+        sender.endRefreshing()
+        tableView.reloadData()
+    }
+    
     func layoutTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -46,6 +51,11 @@ class TableTabMovieViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
         ])
+        
+        let refreshController: UIRefreshControl = UIRefreshControl()
+        refreshController.addTarget(self, action: #selector(pullingTableView(_:)), for: .valueChanged)
+        tableView.refreshControl = refreshController
+        
     }
     
     override func viewDidLoad() {
@@ -69,6 +79,8 @@ class TableTabMovieViewController: UIViewController {
         guard let cell: MovieListTableViewCell = sender as? MovieListTableViewCell else { return }
         
         destination.id = cell.id
+        destination.posterImageData = cell.imageData
+        destination.gradeImageToSet = cell.gradeImage.image
     }
     
 }
@@ -120,6 +132,7 @@ extension TableTabMovieViewController: UITableViewDelegate {
                     guard let index: IndexPath = tableView.indexPath(for: cell) else { return }
                     if index.row == indexPath.row {
                         cell.posterImage.image = image
+                        cell.imageData = data
                     }
                 }
             } catch (let err) {

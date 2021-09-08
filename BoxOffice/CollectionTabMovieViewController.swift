@@ -38,6 +38,11 @@ class CollectionTabMovieViewController: UIViewController {
         }
     }
     
+    @objc func pullingCollectionView(_ sender: UIRefreshControl) {
+        sender.endRefreshing()
+        collectionView.reloadData()
+    }
+    
     func layoutCollectionView() {
         let cellSize = UIScreen.main.bounds.width / 2.0
         let flowLayout: UICollectionViewFlowLayout = {
@@ -50,6 +55,11 @@ class CollectionTabMovieViewController: UIViewController {
         }()
         
         self.collectionView.collectionViewLayout = flowLayout
+        
+        let refreshController: UIRefreshControl = UIRefreshControl()
+        refreshController.addTarget(self, action: #selector(pullingCollectionView(_:)), for: .valueChanged)
+        collectionView.refreshControl = refreshController
+        
     }
     
     override func viewDidLoad() {
@@ -61,15 +71,18 @@ class CollectionTabMovieViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveMovieImageDataNotification(_:)), name: DidReceiveMovieImageDataNotification, object: nil)
         indicator.isHidden = true
     }
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        guard let destination: MovieDetailTableViewController = segue.destination as? MovieDetailTableViewController else { return }
+        guard let cell: MovieCollectionViewCell = sender as? MovieCollectionViewCell else { return }
+        
+        destination.id = cell.id
     }
-    */
 
 }
 
@@ -84,6 +97,7 @@ extension CollectionTabMovieViewController: UICollectionViewDataSource {
         cell.movieTitleLabel.text = MovieListData.shared.data?[indexPath.item].title
         cell.rateLabel.text = MovieListData.shared.data?[indexPath.item].collectionCellRateString
         cell.openDateLabel.text = MovieListData.shared.data?[indexPath.item].date
+        cell.id = MovieListData.shared.data?[indexPath.item].id
         
         guard let grade: Int = MovieListData.shared.data?[indexPath.item].grade else { return UICollectionViewCell() }
         

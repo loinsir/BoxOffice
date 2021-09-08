@@ -10,8 +10,10 @@ import UIKit
 class MovieDetailInformationTableViewCell: UITableViewCell {
     
     static let identifier: String = "informationCell"
+    
+    var image: UIImage!
 
-    @IBOutlet weak var posterImageView: UIImageView!
+    @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var openDateLabel: UILabel!
     @IBOutlet weak var genreTimeLabel: UILabel!

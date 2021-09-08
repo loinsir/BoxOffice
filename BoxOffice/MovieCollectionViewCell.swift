@@ -11,6 +11,8 @@ class MovieCollectionViewCell: UICollectionViewCell {
     
     static let identifier: String = "MovieCollectionViewCell"
     
+    var id: String!
+    
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var gradeImage: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!

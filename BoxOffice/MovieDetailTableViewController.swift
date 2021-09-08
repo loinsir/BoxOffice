@@ -11,7 +11,7 @@ class MovieDetailTableViewController: UITableViewController {
     
     var id: String!
 
-    var posterImageURL: URL?
+    var posterImageData: Data?
     var movieTitleToSet: String?
     var openDateToSet: String?
     var genreTimeToSet: String?
@@ -43,13 +43,13 @@ class MovieDetailTableViewController: UITableViewController {
             guard let data: Data = data else { return }
             do {
                 let apiResponse: MovieData = try JSONDecoder().decode(MovieData.self, from: data)
-                self.posterImageURL = apiResponse.imageURL
                 self.movieTitleToSet = apiResponse.title
                 self.openDateToSet = apiResponse.date
                 self.genreTimeToSet = apiResponse.genreAndTime
                 self.reservationRateToSet = apiResponse.reservationRate
                 self.ratingToSet = apiResponse.userRating
                 self.audienceToSet = apiResponse.audience
+
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -85,14 +85,28 @@ class MovieDetailTableViewController: UITableViewController {
         guard let rating = self.ratingToSet else { return UITableViewCell() }
         guard let genreTime = self.genreTimeToSet else { return UITableViewCell () }
         
-//        cell.posterImageView.image = posterImageToSet
+//        DispatchQueue.global().async {
+//            guard let url = self.posterImageURL else { return }
+//            do {
+//                let data: Data = try Data(contentsOf: url)
+//                guard let image: UIImage = UIImage(data: data) else { return }
+//                DispatchQueue.main.async {
+//                    cell.posterImageView.image = image
+//                }
+//            } catch (let err) {
+//                print(err.localizedDescription)
+//            }
+//        }
+        guard let imageData: Data = posterImageData else { return UITableViewCell( )}
+        cell.posterImage.image = UIImage(data: imageData)
         cell.movieTitleLabel.text = title
         cell.openDateLabel.text = openDate
         cell.reservationRateLabel.text = String(describing: reservation)
         cell.audienceLabel.text = String(describing: audience)
         cell.ratingLabel.text = String(describing: rating)
         cell.genreTimeLabel.text = String(describing: genreTime)
-
+        cell.gradeImageView.image = gradeImageToSet
+        
         return cell
     }
 
