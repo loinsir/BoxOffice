@@ -30,6 +30,7 @@ class MovieDetailTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         requestMovieDetailData(id: id)
+        self.tableView.register(MovieDetailInformationTableViewCell.self, forCellReuseIdentifier: MovieDetailInformationTableViewCell.identifier)
     }
     
     func requestMovieDetailData(id: String) {
