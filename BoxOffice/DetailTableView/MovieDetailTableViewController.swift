@@ -22,6 +22,8 @@ class MovieDetailTableViewController: UITableViewController {
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var audienceLabel: UILabel!
     
+    @IBOutlet weak var synopsisTextView: UITextView!
+    
     
     var posterImageData: Data?
     var movieTitleToSet: String?
@@ -43,6 +45,7 @@ class MovieDetailTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         requestMovieDetailData(id: id)
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "informationCell")
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "synopsisCell")
     }
     
     func requestMovieDetailData(id: String) {
@@ -67,6 +70,7 @@ class MovieDetailTableViewController: UITableViewController {
                     self.reservationRateLabel.text = String(describing: apiResponse.reservationRate)
                     self.ratingLabel.text = String(describing: apiResponse.userRating)
                     self.audienceLabel.text = String(describing: apiResponse.audience)
+                    self.synopsisTextView.text = apiResponse.synopsis
                     
                     self.tableView.reloadData()
                 }

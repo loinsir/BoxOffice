@@ -307,22 +307,34 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="256" id="cmS-fI-vO2">
-                                        <rect key="frame" x="0.0" y="271.33333396911621" width="390" height="256"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="synopsisCell" rowHeight="247" id="cmS-fI-vO2">
+                                        <rect key="frame" x="0.0" y="271.33333396911621" width="390" height="247"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cmS-fI-vO2" id="b5O-Vn-ERP">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="256"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="247"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="줄거리" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWy-LA-fqc">
-                                                    <rect key="frame" x="25" y="16" width="47" height="22"/>
+                                                    <rect key="frame" x="25" y="16" width="47" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wgd-AW-KDB">
+                                                    <rect key="frame" x="30" y="47.666666666666671" width="330" height="178.33333333333331"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <color key="textColor" systemColor="labelColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NWy-LA-fqc" secondAttribute="trailing" constant="20" symbolic="YES" id="49t-n2-bJ6"/>
+                                                <constraint firstItem="wgd-AW-KDB" firstAttribute="leading" secondItem="b5O-Vn-ERP" secondAttribute="leadingMargin" constant="10" id="RrZ-ZP-LU5"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="wgd-AW-KDB" secondAttribute="bottom" constant="10" id="VE8-pD-0Ga"/>
+                                                <constraint firstItem="wgd-AW-KDB" firstAttribute="top" secondItem="NWy-LA-fqc" secondAttribute="bottom" constant="10" id="e2P-gF-xmW"/>
                                                 <constraint firstItem="NWy-LA-fqc" firstAttribute="leading" secondItem="b5O-Vn-ERP" secondAttribute="leadingMargin" constant="5" id="flY-Ea-9Jq"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="wgd-AW-KDB" secondAttribute="trailing" constant="10" id="l5b-nZ-ZJL"/>
                                                 <constraint firstItem="NWy-LA-fqc" firstAttribute="top" secondItem="b5O-Vn-ERP" secondAttribute="topMargin" constant="5" id="oQd-4c-roR"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -345,6 +357,7 @@
                         <outlet property="posterImageView" destination="eZP-gD-RN4" id="yPw-Uv-kSQ"/>
                         <outlet property="ratingLabel" destination="35O-Mz-GgW" id="EPi-xx-Xdb"/>
                         <outlet property="reservationRateLabel" destination="Mkh-eT-dr5" id="kUQ-zv-lX7"/>
+                        <outlet property="synopsisTextView" destination="wgd-AW-KDB" id="heJ-Gj-sgj"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uhg-ZB-JlZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -523,6 +536,9 @@
         <image name="ic_collection" width="25" height="25"/>
         <image name="ic_list" width="24" height="24"/>
         <image name="ic_settings" width="24" height="24"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
