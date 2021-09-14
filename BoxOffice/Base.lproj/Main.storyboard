@@ -132,7 +132,7 @@
                         <sections>
                             <tableViewSection id="0ih-tQ-IOI">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="informationCell" rowHeight="247" id="sp3-KJ-zbO" customClass="MovieDetailInformationTableViewCell" customModule="BoxOffice" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="informationCell" rowHeight="247" id="sp3-KJ-zbO">
                                         <rect key="frame" x="0.0" y="24.333333969116211" width="390" height="247"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sp3-KJ-zbO" id="zVJ-Vn-rlt">
@@ -306,13 +306,6 @@
                                                 <constraint firstItem="yH1-14-mip" firstAttribute="leading" secondItem="YTw-Yg-HEV" secondAttribute="trailing" constant="5" id="mVh-sL-nfJ"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="audienceLabel" destination="4fG-ev-40g" id="4C0-ZT-kSd"/>
-                                            <outlet property="genreTimeLabel" destination="Zmc-YV-GWw" id="Jbx-S5-opZ"/>
-                                            <outlet property="gradeImageView" destination="yH1-14-mip" id="fKN-aP-QOs"/>
-                                            <outlet property="posterImage" destination="eZP-gD-RN4" id="ejG-PS-URq"/>
-                                            <outlet property="ratingLabel" destination="35O-Mz-GgW" id="Snf-cd-sTv"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="256" id="cmS-fI-vO2">
                                         <rect key="frame" x="0.0" y="271.33333396911621" width="390" height="256"/>
@@ -334,22 +327,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="20m-ha-M8b">
-                                        <rect key="frame" x="0.0" y="527.33333396911621" width="390" height="43.666667938232422"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="20m-ha-M8b" id="fjF-bJ-Vjf">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Cdo-dN-l5c">
-                                        <rect key="frame" x="0.0" y="571.00000190734863" width="390" height="43.666667938232422"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Cdo-dN-l5c" id="AOa-hd-uGf">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -359,6 +336,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="S3E-ur-aEK"/>
+                    <connections>
+                        <outlet property="audienceLabel" destination="4fG-ev-40g" id="oEk-oh-aib"/>
+                        <outlet property="genreTimeLabel" destination="Zmc-YV-GWw" id="XVI-Wu-Y1v"/>
+                        <outlet property="gradeImage" destination="yH1-14-mip" id="hov-ly-awQ"/>
+                        <outlet property="movieTitleLabel" destination="YTw-Yg-HEV" id="OGb-eI-zWG"/>
+                        <outlet property="openDateLabel" destination="jlR-17-1bh" id="Cfn-mL-AUE"/>
+                        <outlet property="posterImageView" destination="eZP-gD-RN4" id="yPw-Uv-kSQ"/>
+                        <outlet property="ratingLabel" destination="35O-Mz-GgW" id="EPi-xx-Xdb"/>
+                        <outlet property="reservationRateLabel" destination="Mkh-eT-dr5" id="kUQ-zv-lX7"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uhg-ZB-JlZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

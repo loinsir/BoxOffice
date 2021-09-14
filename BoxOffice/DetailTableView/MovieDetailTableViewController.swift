@@ -11,6 +11,18 @@ class MovieDetailTableViewController: UITableViewController {
     
     var id: String!
 
+    @IBOutlet weak var posterImageView: UIImageView!
+    
+    @IBOutlet weak var movieTitleLabel: UILabel!
+    @IBOutlet weak var openDateLabel: UILabel!
+    @IBOutlet weak var genreTimeLabel: UILabel!
+    @IBOutlet weak var gradeImage: UIImageView!
+    
+    @IBOutlet weak var reservationRateLabel: UILabel!
+    @IBOutlet weak var ratingLabel: UILabel!
+    @IBOutlet weak var audienceLabel: UILabel!
+    
+    
     var posterImageData: Data?
     var movieTitleToSet: String?
     var openDateToSet: String?
@@ -30,7 +42,7 @@ class MovieDetailTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         requestMovieDetailData(id: id)
-        self.tableView.register(MovieDetailInformationTableViewCell.self, forCellReuseIdentifier: MovieDetailInformationTableViewCell.identifier)
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "informationCell")
     }
     
     func requestMovieDetailData(id: String) {
@@ -44,14 +56,18 @@ class MovieDetailTableViewController: UITableViewController {
             guard let data: Data = data else { return }
             do {
                 let apiResponse: MovieData = try JSONDecoder().decode(MovieData.self, from: data)
-                self.movieTitleToSet = apiResponse.title
-                self.openDateToSet = apiResponse.date
-                self.genreTimeToSet = apiResponse.genreAndTime
-                self.reservationRateToSet = apiResponse.reservationRate
-                self.ratingToSet = apiResponse.userRating
-                self.audienceToSet = apiResponse.audience
-
+                let imageData: Data = try Data(contentsOf: apiResponse.imageURL)
+                guard let posterImage: UIImage = UIImage(data: imageData) else { return }
+                
                 DispatchQueue.main.async {
+                    self.posterImageView.image = posterImage
+                    self.movieTitleLabel.text = apiResponse.title
+                    self.openDateLabel.text = apiResponse.date
+                    self.genreTimeLabel.text = apiResponse.genreAndTime
+                    self.reservationRateLabel.text = String(describing: apiResponse.reservationRate)
+                    self.ratingLabel.text = String(describing: apiResponse.userRating)
+                    self.audienceLabel.text = String(describing: apiResponse.audience)
+                    
                     self.tableView.reloadData()
                 }
             } catch (let err) {
@@ -64,52 +80,19 @@ class MovieDetailTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        // #warning Incomplete implementation, return the number of sections
+//        return 1
+//    }
+//
+//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        // #warning Incomplete implementation, return the number of rows
+//        return 1
+//    }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        // 1. movie information cell
-        guard let cell: MovieDetailInformationTableViewCell = tableView.dequeueReusableCell(withIdentifier: MovieDetailInformationTableViewCell.identifier, for: indexPath) as? MovieDetailInformationTableViewCell else { return UITableViewCell() }
-        
-        guard let title = self.movieTitleToSet else { return UITableViewCell() }
-        guard let openDate = self.openDateToSet else { return UITableViewCell() }
-        guard let reservation = self.reservationRateToSet else { return UITableViewCell() }
-        guard let audience = self.audienceToSet else { return UITableViewCell() }
-        guard let rating = self.ratingToSet else { return UITableViewCell() }
-        guard let genreTime = self.genreTimeToSet else { return UITableViewCell () }
-        
-//        DispatchQueue.global().async {
-//            guard let url = self.posterImageURL else { return }
-//            do {
-//                let data: Data = try Data(contentsOf: url)
-//                guard let image: UIImage = UIImage(data: data) else { return }
-//                DispatchQueue.main.async {
-//                    cell.posterImageView.image = image
-//                }
-//            } catch (let err) {
-//                print(err.localizedDescription)
-//            }
-//        }
-        guard let imageData: Data = posterImageData else { return UITableViewCell( )}
-        cell.posterImage.image = UIImage(data: imageData)
-        cell.movieTitleLabel.text = title
-        cell.openDateLabel.text = openDate
-        cell.reservationRateLabel.text = String(describing: reservation)
-        cell.audienceLabel.text = String(describing: audience)
-        cell.ratingLabel.text = String(describing: rating)
-        cell.genreTimeLabel.text = String(describing: genreTime)
-        cell.gradeImageView.image = gradeImageToSet
-        
-        return cell
-    }
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//
+//    }
 
 
     /*

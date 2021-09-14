@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		197D897226E3764600B1E7B6 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197D897126E3764600B1E7B6 /* CommentTableViewCell.swift */; };
 		197D897426E3BF8A00B1E7B6 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197D897326E3BF8A00B1E7B6 /* TabBarViewController.swift */; };
 		197D897626E3C52600B1E7B6 /* MovieDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197D897526E3C52600B1E7B6 /* MovieDetailTableViewController.swift */; };
-		197D897A26E485F300B1E7B6 /* MovieDetailInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197D897926E485F300B1E7B6 /* MovieDetailInformationTableViewCell.swift */; };
 		1997DFC126DA242600CCE172 /* DataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1997DFC026DA242600CCE172 /* DataRequest.swift */; };
 		1997DFC326DDDCFA00CCE172 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1997DFC226DDDCFA00CCE172 /* MovieCollectionViewCell.swift */; };
 		19B2472C26D52FF700DB10D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B2472B26D52FF700DB10D8 /* AppDelegate.swift */; };
@@ -45,10 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		197D897126E3764600B1E7B6 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		197D897326E3BF8A00B1E7B6 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		197D897526E3C52600B1E7B6 /* MovieDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailTableViewController.swift; sourceTree = "<group>"; };
-		197D897926E485F300B1E7B6 /* MovieDetailInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailInformationTableViewCell.swift; sourceTree = "<group>"; };
 		1997DFC026DA242600CCE172 /* DataRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRequest.swift; sourceTree = "<group>"; };
 		1997DFC226DDDCFA00CCE172 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		19B2472826D52FF700DB10D8 /* BoxOffice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoxOffice.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,14 +110,12 @@
 			path = CollectionTab;
 			sourceTree = "<group>";
 		};
-		19B0EED726E907F30093DB8E /* DetailView */ = {
+		19B0EED726E907F30093DB8E /* DetailTableView */ = {
 			isa = PBXGroup;
 			children = (
-				197D897126E3764600B1E7B6 /* CommentTableViewCell.swift */,
 				197D897526E3C52600B1E7B6 /* MovieDetailTableViewController.swift */,
-				197D897926E485F300B1E7B6 /* MovieDetailInformationTableViewCell.swift */,
 			);
-			path = DetailView;
+			path = DetailTableView;
 			sourceTree = "<group>";
 		};
 		19B2471F26D52FF700DB10D8 = {
@@ -152,7 +146,7 @@
 				19B2475D26D8C23400DB10D8 /* GlobalFunction.swift */,
 				1997DFC026DA242600CCE172 /* DataRequest.swift */,
 				197D897326E3BF8A00B1E7B6 /* TabBarViewController.swift */,
-				19B0EED726E907F30093DB8E /* DetailView */,
+				19B0EED726E907F30093DB8E /* DetailTableView */,
 				19B0EED626E907C10093DB8E /* CollectionTab */,
 				19B0EED526E907620093DB8E /* TableTab */,
 				19B2473126D52FF700DB10D8 /* Main.storyboard */,
@@ -318,10 +312,8 @@
 				19B2476026D8C6BF00DB10D8 /* MovieListTableViewCell.swift in Sources */,
 				19B2475E26D8C23400DB10D8 /* GlobalFunction.swift in Sources */,
 				19B2476226D9092100DB10D8 /* JSONModel.swift in Sources */,
-				197D897226E3764600B1E7B6 /* CommentTableViewCell.swift in Sources */,
 				1997DFC326DDDCFA00CCE172 /* MovieCollectionViewCell.swift in Sources */,
 				197D897426E3BF8A00B1E7B6 /* TabBarViewController.swift in Sources */,
-				197D897A26E485F300B1E7B6 /* MovieDetailInformationTableViewCell.swift in Sources */,
 				197D897626E3C52600B1E7B6 /* MovieDetailTableViewController.swift in Sources */,
 				19B2472E26D52FF700DB10D8 /* SceneDelegate.swift in Sources */,
 				1997DFC126DA242600CCE172 /* DataRequest.swift in Sources */,
