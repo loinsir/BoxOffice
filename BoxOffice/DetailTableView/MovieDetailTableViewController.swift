@@ -13,7 +13,7 @@ class MovieDetailTableViewController: UITableViewController {
     
 // - MARK: IBOutlet
     @IBOutlet weak var posterImageView: UIImageView!
-    
+
     @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var openDateLabel: UILabel!
     @IBOutlet weak var genreTimeLabel: UILabel!
@@ -34,6 +34,9 @@ class MovieDetailTableViewController: UITableViewController {
     @IBOutlet weak var directorLabel: UILabel!
     @IBOutlet weak var actorLabel: UILabel!
     
+    @IBAction func touchPosterImage(_ sender: UITapGestureRecognizer) {
+        print("touch!")
+    }
     
     var posterImageData: Data?
     var movieTitleToSet: String?
@@ -45,6 +48,14 @@ class MovieDetailTableViewController: UITableViewController {
     var ratingToSet: Float?
     var audienceToSet: Int?
     
+    func layoutTableView() {
+        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.estimatedRowHeight = 240
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "informationCell")
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "synopsisCell")
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "directorCell")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -53,12 +64,9 @@ class MovieDetailTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.estimatedRowHeight = 240
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "informationCell")
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "synopsisCell")
+        self.layoutTableView()
         requestMovieDetailData(id: id)
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "directorCell")
+        self.posterImageView.isUserInteractionEnabled = true
     }
     
     func requestMovieDetailData(id: String) {
@@ -220,14 +228,20 @@ class MovieDetailTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "touchPosterImage" {
+            guard let destination: posterImageViewController = segue.destination as? posterImageViewController else { return }
+            
+            destination.imageForZoom = self.posterImageView.image
+        }
+        
     }
-    */
+    
 
 }
