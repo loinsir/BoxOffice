@@ -34,10 +34,6 @@ class MovieDetailTableViewController: UITableViewController {
     @IBOutlet weak var directorLabel: UILabel!
     @IBOutlet weak var actorLabel: UILabel!
     
-    @IBAction func touchPosterImage(_ sender: UITapGestureRecognizer) {
-        print("touch!")
-    }
-    
     var posterImageData: Data?
     var movieTitleToSet: String?
     var openDateToSet: String?
@@ -47,6 +43,8 @@ class MovieDetailTableViewController: UITableViewController {
     var reservationRateToSet: Float?
     var ratingToSet: Float?
     var audienceToSet: Int?
+    
+    var userComments: [comment] = []
     
     func layoutTableView() {
         self.tableView.rowHeight = UITableView.automaticDimension
@@ -58,15 +56,34 @@ class MovieDetailTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        self.posterImageView.isUserInteractionEnabled = false
         self.layoutTableView()
         requestMovieDetailData(id: id)
-        self.posterImageView.isUserInteractionEnabled = true
+        requestUserComment()
+    }
+    
+    func requestUserComment() {
+        guard let url: URL = URL(string: "https://connect-boxoffice.run.goorm.io/comments?movie_id=\(String(describing: self.id))") else { return }
+        
+        let dataTask = URLSession.shared.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
+            if let err = error {
+                print(err.localizedDescription)
+            }
+            
+            guard let data: Data = data else { return }
+            do {
+                let apiResponse: comments = try JSONDecoder().decode(comments.self, from: data)
+                self.userComments = apiResponse.comments
+            } catch (let err) {
+                print(err.localizedDescription)
+            }
+        }
+        dataTask.resume()
     }
     
     func requestMovieDetailData(id: String) {
@@ -88,6 +105,7 @@ class MovieDetailTableViewController: UITableViewController {
                 
                 DispatchQueue.main.async {
                     self.posterImageView.image = posterImage
+                    self.posterImageView.isUserInteractionEnabled = true
                     self.movieTitleLabel.text = apiResponse.title
                     self.openDateLabel.text = apiResponse.date
                     self.genreTimeLabel.text = apiResponse.genreAndTime
@@ -178,19 +196,40 @@ class MovieDetailTableViewController: UITableViewController {
         return UITableView.automaticDimension
     }
 
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 1
-//    }
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 4
+    }
 //
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete implementation, return the number of rows
-//        return 1
-//    }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        switch section {
+        case 0...2:
+            return super.tableView(tableView, numberOfRowsInSection: section)
+        default:
+            return 1 + userComments.count
+        }
+    }
 
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//
-//    }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.section {
+        case 0...2:
+            return super.tableView(tableView, cellForRowAt: indexPath)
+        default:
+            switch indexPath.row {
+            case 0:
+                return super.tableView(tableView, cellForRowAt: indexPath)
+            default:
+                guard let cell: UserCommentTableViewCell = tableView.dequeueReusableCell(withIdentifier: "userCommentCell", for: indexPath) as? UserCommentTableViewCell else { return UITableViewCell() }
+                cell.userLabel.text = self.userComments[indexPath.row-1].writer
+                cell.timeLabel.text = String(describing:self.userComments[indexPath.row-1].timestamp)
+                cell.commentLabel.text = self.userComments[indexPath.row-1].contents
+                
+                return cell
+            }
+        }
+
+    }
 
 
     /*
