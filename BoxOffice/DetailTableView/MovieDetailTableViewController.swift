@@ -107,7 +107,6 @@ class MovieDetailTableViewController: UITableViewController {
             } catch (let err) {
                 print(err.localizedDescription)
             }
-            cell.posterImageView.isUserInteractionEnabled = true
             cell.movieTitleLabel.text = movieData.title
             cell.openDateLabel.text = movieData.date
             cell.genreTimeLabel.text = movieData.genreAndTime
@@ -286,11 +285,17 @@ class MovieDetailTableViewController: UITableViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if segue.identifier == "touchPosterImage" {
+            guard let movieData: MovieData = movieInformationData else { return }
             guard let destination: posterImageViewController = segue.destination as? posterImageViewController else { return }
             
-            guard let cell: InformationTableViewCell = sender as? InformationTableViewCell else { return }
+            do {
+                let data: Data = try Data(contentsOf: movieData.imageURL)
+                guard let image: UIImage = UIImage(data: data) else { return }
+                destination.imageForZoom = image
+            } catch (let err) {
+                print(err.localizedDescription)
+            }
             
-            destination.posterImage.image = cell.posterImageView.image
         }
     }
     

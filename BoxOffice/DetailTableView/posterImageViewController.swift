@@ -10,6 +10,7 @@ import UIKit
 class posterImageViewController: UIViewController {
     
     @IBOutlet weak var posterImage: UIImageView!
+    
     var imageForZoom: UIImage!
 
     override func viewDidLoad() {
