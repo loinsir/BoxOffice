@@ -1,13 +1,18 @@
 //
-//  CommentTableViewCell.swift
+//  DirectorAndActorTableViewCell.swift
 //  BoxOffice
 //
-//  Created by 김인환 on 2021/09/04.
+//  Created by 김인환 on 2021/09/26.
 //
 
 import UIKit
 
-class CommentTableViewCell: UITableViewCell {
+class DirectorAndActorTableViewCell: UITableViewCell {
+    
+    static let identifier: String = "directorAndActorCell"
+    
+    @IBOutlet var directorLabel: UILabel!
+    @IBOutlet var actorLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

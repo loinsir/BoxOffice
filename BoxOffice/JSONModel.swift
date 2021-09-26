@@ -160,8 +160,8 @@ struct comments: Codable {
 
 struct comment: Codable {
     var id: String
-    var rating: Int
-    var timestamp: Date
+    var rating: Double
+    var timestamp: Double
     var writer: String
     var movieID: String
     var contents: String
@@ -173,5 +173,9 @@ struct comment: Codable {
         case writer
         case movieID = "movie_id"
         case contents
+    }
+    
+    var timeString: String {
+        return String(describing:Date(timeIntervalSince1970: timestamp))
     }
 }

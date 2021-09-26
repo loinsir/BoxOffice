@@ -14,6 +14,12 @@ class UserCommentTableViewCell: UITableViewCell {
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
+    
+    @IBOutlet weak var firstStarImage: UIImageView!
+    @IBOutlet weak var secondStarImage: UIImageView!
+    @IBOutlet weak var thirdStarImage: UIImageView!
+    @IBOutlet weak var fourthStarImage: UIImageView!
+    @IBOutlet weak var fifthStarImage: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()

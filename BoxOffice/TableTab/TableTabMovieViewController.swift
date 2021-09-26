@@ -79,8 +79,6 @@ class TableTabMovieViewController: UIViewController {
         guard let cell: MovieListTableViewCell = sender as? MovieListTableViewCell else { return }
         
         destination.id = cell.id
-        destination.posterImageData = cell.imageData
-        destination.gradeImageToSet = cell.gradeImage.image
     }
     
 }

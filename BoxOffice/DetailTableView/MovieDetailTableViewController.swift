@@ -11,47 +11,15 @@ class MovieDetailTableViewController: UITableViewController {
     
     var id: String!
     
-// - MARK: IBOutlet
-    @IBOutlet weak var posterImageView: UIImageView!
-
-    @IBOutlet weak var movieTitleLabel: UILabel!
-    @IBOutlet weak var openDateLabel: UILabel!
-    @IBOutlet weak var genreTimeLabel: UILabel!
-    @IBOutlet weak var gradeImage: UIImageView!
-    
-    @IBOutlet weak var reservationRateLabel: UILabel!
-    @IBOutlet weak var ratingLabel: UILabel!
-    @IBOutlet weak var firstStarImage: UIImageView!
-    @IBOutlet weak var secondStarImage: UIImageView!
-    @IBOutlet weak var thirdStarImage: UIImageView!
-    @IBOutlet weak var fourthStarImage: UIImageView!
-    @IBOutlet weak var fifthStarImage: UIImageView!
-    
-    @IBOutlet weak var audienceLabel: UILabel!
-    
-    @IBOutlet weak var synopsisLabel: UILabel!
-    
-    @IBOutlet weak var directorLabel: UILabel!
-    @IBOutlet weak var actorLabel: UILabel!
-    
-    var posterImageData: Data?
-    var movieTitleToSet: String?
-    var openDateToSet: String?
-    var genreTimeToSet: String?
-    weak var gradeImageToSet: UIImage!
-    
-    var reservationRateToSet: Float?
-    var ratingToSet: Float?
-    var audienceToSet: Int?
-    
+    var movieInformationData: MovieData?
     var userComments: [comment] = []
+    
+    let emptyStar: UIImage = UIImage(named: "ic_star_large") ?? UIImage()
+    let halfStar: UIImage = UIImage(named: "ic_star_large_half") ?? UIImage()
+    let fullStar: UIImage = UIImage(named: "ic_star_large_full") ?? UIImage()
     
     func layoutTableView() {
         self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.estimatedRowHeight = 240
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "informationCell")
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "synopsisCell")
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "directorCell")
     }
     
     override func viewDidLoad() {
@@ -60,15 +28,13 @@ class MovieDetailTableViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        self.posterImageView.isUserInteractionEnabled = false
-        self.layoutTableView()
-        requestMovieDetailData(id: id)
         requestUserComment()
+        layoutTableView()
+        requestMovieDetailData(id: id)
     }
     
     func requestUserComment() {
-        guard let url: URL = URL(string: "https://connect-boxoffice.run.goorm.io/comments?movie_id=\(String(describing: self.id))") else { return }
+        guard let url: URL = URL(string: "https://connect-boxoffice.run.goorm.io/comments?movie_id="+self.id) else { return }
         
         let dataTask = URLSession.shared.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
             if let err = error {
@@ -97,89 +63,9 @@ class MovieDetailTableViewController: UITableViewController {
             guard let data: Data = data else { return }
             do {
                 let apiResponse: MovieData = try JSONDecoder().decode(MovieData.self, from: data)
-                let imageData: Data = try Data(contentsOf: apiResponse.imageURL)
-                guard let posterImage: UIImage = UIImage(data: imageData) else { return }
-                guard let emptyStar: UIImage = UIImage(named: "ic_star_large") else { return }
-                guard let halfStar: UIImage = UIImage(named: "ic_star_large_half") else { return }
-                guard let fullStar: UIImage = UIImage(named: "ic_star_large_full") else { return }
+                self.movieInformationData = apiResponse
                 
                 DispatchQueue.main.async {
-                    self.posterImageView.image = posterImage
-                    self.posterImageView.isUserInteractionEnabled = true
-                    self.movieTitleLabel.text = apiResponse.title
-                    self.openDateLabel.text = apiResponse.date
-                    self.genreTimeLabel.text = apiResponse.genreAndTime
-                    self.reservationRateLabel.text = String(describing: apiResponse.reservationRate)
-                    self.ratingLabel.text = String(describing: apiResponse.userRating)
-                    self.audienceLabel.text = String(describing: apiResponse.audience)
-                    self.synopsisLabel.text = apiResponse.synopsis
-                    self.directorLabel.text = apiResponse.director
-                    self.actorLabel.text = apiResponse.actor
-                    
-                    
-                    switch apiResponse.userRating {
-                    case 0...1:
-                        self.firstStarImage.image = halfStar
-                        self.secondStarImage.image = emptyStar
-                        self.thirdStarImage.image = emptyStar
-                        self.fourthStarImage.image = emptyStar
-                        self.fifthStarImage.image = emptyStar
-                    case 1...2:
-                        self.firstStarImage.image = fullStar
-                        self.secondStarImage.image = emptyStar
-                        self.thirdStarImage.image = emptyStar
-                        self.fourthStarImage.image = emptyStar
-                        self.fifthStarImage.image = emptyStar
-                    case 2...3:
-                        self.firstStarImage.image = fullStar
-                        self.secondStarImage.image = halfStar
-                        self.thirdStarImage.image = emptyStar
-                        self.fourthStarImage.image = emptyStar
-                        self.fifthStarImage.image = emptyStar
-                    case 3...4:
-                        self.firstStarImage.image = fullStar
-                        self.secondStarImage.image = fullStar
-                        self.thirdStarImage.image = emptyStar
-                        self.fourthStarImage.image = emptyStar
-                        self.fifthStarImage.image = emptyStar
-                    case 4...5:
-                        self.firstStarImage.image = fullStar
-                        self.secondStarImage.image = fullStar
-                        self.thirdStarImage.image = halfStar
-                        self.fourthStarImage.image = emptyStar
-                        self.fifthStarImage.image = emptyStar
-                    case 5...6:
-                        self.firstStarImage.image = fullStar
-                        self.secondStarImage.image = fullStar
-                        self.thirdStarImage.image = fullStar
-                        self.fourthStarImage.image = emptyStar
-                        self.fifthStarImage.image = emptyStar
-                    case 6...7:
-                        self.firstStarImage.image = fullStar
-                        self.secondStarImage.image = fullStar
-                        self.thirdStarImage.image = fullStar
-                        self.fourthStarImage.image = halfStar
-                        self.fifthStarImage.image = emptyStar
-                    case 7...8:
-                        self.firstStarImage.image = fullStar
-                        self.secondStarImage.image = fullStar
-                        self.thirdStarImage.image = fullStar
-                        self.fourthStarImage.image = fullStar
-                        self.fifthStarImage.image = emptyStar
-                    case 8...9:
-                        self.firstStarImage.image = fullStar
-                        self.secondStarImage.image = fullStar
-                        self.thirdStarImage.image = fullStar
-                        self.fourthStarImage.image = fullStar
-                        self.fifthStarImage.image = halfStar
-                    default:
-                        self.firstStarImage.image = fullStar
-                        self.secondStarImage.image = fullStar
-                        self.thirdStarImage.image = fullStar
-                        self.fourthStarImage.image = fullStar
-                        self.fifthStarImage.image = fullStar
-                    }
-                    
                     self.tableView.reloadData()
                 }
             } catch (let err) {
@@ -198,75 +84,200 @@ class MovieDetailTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 4
+        return 1
     }
-//
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        switch section {
-        case 0...2:
-            return super.tableView(tableView, numberOfRowsInSection: section)
-        default:
-            return 1 + userComments.count
-        }
+        return 3 + userComments.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0...2:
-            return super.tableView(tableView, cellForRowAt: indexPath)
-        default:
-            switch indexPath.row {
-            case 0:
-                return super.tableView(tableView, cellForRowAt: indexPath)
-            default:
-                guard let cell: UserCommentTableViewCell = tableView.dequeueReusableCell(withIdentifier: "userCommentCell", for: indexPath) as? UserCommentTableViewCell else { return UITableViewCell() }
-                cell.userLabel.text = self.userComments[indexPath.row-1].writer
-                cell.timeLabel.text = String(describing:self.userComments[indexPath.row-1].timestamp)
-                cell.commentLabel.text = self.userComments[indexPath.row-1].contents
-                
-                return cell
+        
+        guard let movieData: MovieData = movieInformationData else { return UITableViewCell() }
+        
+        switch indexPath.row {
+        case 0:
+            guard let cell: InformationTableViewCell = tableView.dequeueReusableCell(withIdentifier: InformationTableViewCell.identifier, for: indexPath) as? InformationTableViewCell else { return UITableViewCell() }
+            
+            do {
+                let data: Data = try Data(contentsOf: movieData.imageURL)
+                guard let image: UIImage = UIImage(data: data) else { return UITableViewCell() }
+                cell.posterImageView.image = image
+            } catch (let err) {
+                print(err.localizedDescription)
             }
+            cell.posterImageView.isUserInteractionEnabled = true
+            cell.movieTitleLabel.text = movieData.title
+            cell.openDateLabel.text = movieData.date
+            cell.genreTimeLabel.text = movieData.genreAndTime
+            cell.reservationRateLabel.text = String(describing: movieData.reservationRate)
+            cell.ratingLabel.text = String(describing: movieData.userRating)
+            cell.audienceLabel.text = String(describing: movieData.audience)
+            
+            switch movieData.userRating {
+            case 0...1:
+                cell.firstStarImage.image = halfStar
+                cell.secondStarImage.image = emptyStar
+                cell.thirdStarImage.image = emptyStar
+                cell.fourthStarImage.image = emptyStar
+                cell.fifthStarImage.image = emptyStar
+            case 1...2:
+                cell.firstStarImage.image = fullStar
+                cell.secondStarImage.image = emptyStar
+                cell.thirdStarImage.image = emptyStar
+                cell.fourthStarImage.image = emptyStar
+                cell.fifthStarImage.image = emptyStar
+            case 2...3:
+                cell.firstStarImage.image = fullStar
+                cell.secondStarImage.image = halfStar
+                cell.thirdStarImage.image = emptyStar
+                cell.fourthStarImage.image = emptyStar
+                cell.fifthStarImage.image = emptyStar
+            case 3...4:
+                cell.firstStarImage.image = fullStar
+                cell.secondStarImage.image = fullStar
+                cell.thirdStarImage.image = emptyStar
+                cell.fourthStarImage.image = emptyStar
+                cell.fifthStarImage.image = emptyStar
+            case 4...5:
+                cell.firstStarImage.image = fullStar
+                cell.secondStarImage.image = fullStar
+                cell.thirdStarImage.image = halfStar
+                cell.fourthStarImage.image = emptyStar
+                cell.fifthStarImage.image = emptyStar
+            case 5...6:
+                cell.firstStarImage.image = fullStar
+                cell.secondStarImage.image = fullStar
+                cell.thirdStarImage.image = fullStar
+                cell.fourthStarImage.image = emptyStar
+                cell.fifthStarImage.image = emptyStar
+            case 6...7:
+                cell.firstStarImage.image = fullStar
+                cell.secondStarImage.image = fullStar
+                cell.thirdStarImage.image = fullStar
+                cell.fourthStarImage.image = halfStar
+                cell.fifthStarImage.image = emptyStar
+            case 7...8:
+                cell.firstStarImage.image = fullStar
+                cell.secondStarImage.image = fullStar
+                cell.thirdStarImage.image = fullStar
+                cell.fourthStarImage.image = fullStar
+                cell.fifthStarImage.image = emptyStar
+            case 8...9:
+                cell.firstStarImage.image = fullStar
+                cell.secondStarImage.image = fullStar
+                cell.thirdStarImage.image = fullStar
+                cell.fourthStarImage.image = fullStar
+                cell.fifthStarImage.image = halfStar
+            default:
+                cell.firstStarImage.image = fullStar
+                cell.secondStarImage.image = fullStar
+                cell.thirdStarImage.image = fullStar
+                cell.fourthStarImage.image = fullStar
+                cell.fifthStarImage.image = fullStar
+            }
+            
+            return cell
+            
+        case 1:
+            guard let cell: SynopsisTableViewCell = tableView.dequeueReusableCell(withIdentifier: SynopsisTableViewCell.identifier, for: indexPath) as? SynopsisTableViewCell else { return UITableViewCell() }
+            cell.synopsisLabel.text = movieData.synopsis
+            
+            return cell
+            
+        case 2:
+            guard let cell: DirectorAndActorTableViewCell = tableView.dequeueReusableCell(withIdentifier: DirectorAndActorTableViewCell.identifier, for: indexPath) as? DirectorAndActorTableViewCell else { return UITableViewCell() }
+            
+            cell.actorLabel.text = movieData.actor
+            cell.directorLabel.text = movieData.director
+            
+            return cell
+            
+        case 3:
+            guard let cell: CommentHeaderTableViewCell = tableView.dequeueReusableCell(withIdentifier: CommentHeaderTableViewCell.identifier, for: indexPath) as? CommentHeaderTableViewCell else { return UITableViewCell() }
+            
+            return cell
+            
+        case 4...:
+            guard let cell: UserCommentTableViewCell = tableView.dequeueReusableCell(withIdentifier: UserCommentTableViewCell.identifier, for: indexPath) as? UserCommentTableViewCell else { return UITableViewCell() }
+            
+            let commentIndex: Int = indexPath.row - 3
+            
+            cell.userLabel.text = userComments[commentIndex].writer
+            cell.timeLabel.text = userComments[commentIndex].timeString
+            cell.commentLabel.text = userComments[commentIndex].contents
+            
+            switch userComments[commentIndex].rating {
+            case 0...1:
+                cell.firstStarImage.image = halfStar
+                cell.secondStarImage.image = emptyStar
+                cell.thirdStarImage.image = emptyStar
+                cell.fourthStarImage.image = emptyStar
+                cell.fifthStarImage.image = emptyStar
+            case 1...2:
+                cell.firstStarImage.image = fullStar
+                cell.secondStarImage.image = emptyStar
+                cell.thirdStarImage.image = emptyStar
+                cell.fourthStarImage.image = emptyStar
+                cell.fifthStarImage.image = emptyStar
+            case 2...3:
+                cell.firstStarImage.image = fullStar
+                cell.secondStarImage.image = halfStar
+                cell.thirdStarImage.image = emptyStar
+                cell.fourthStarImage.image = emptyStar
+                cell.fifthStarImage.image = emptyStar
+            case 3...4:
+                cell.firstStarImage.image = fullStar
+                cell.secondStarImage.image = fullStar
+                cell.thirdStarImage.image = emptyStar
+                cell.fourthStarImage.image = emptyStar
+                cell.fifthStarImage.image = emptyStar
+            case 4...5:
+                cell.firstStarImage.image = fullStar
+                cell.secondStarImage.image = fullStar
+                cell.thirdStarImage.image = halfStar
+                cell.fourthStarImage.image = emptyStar
+                cell.fifthStarImage.image = emptyStar
+            case 5...6:
+                cell.firstStarImage.image = fullStar
+                cell.secondStarImage.image = fullStar
+                cell.thirdStarImage.image = fullStar
+                cell.fourthStarImage.image = emptyStar
+                cell.fifthStarImage.image = emptyStar
+            case 6...7:
+                cell.firstStarImage.image = fullStar
+                cell.secondStarImage.image = fullStar
+                cell.thirdStarImage.image = fullStar
+                cell.fourthStarImage.image = halfStar
+                cell.fifthStarImage.image = emptyStar
+            case 7...8:
+                cell.firstStarImage.image = fullStar
+                cell.secondStarImage.image = fullStar
+                cell.thirdStarImage.image = fullStar
+                cell.fourthStarImage.image = fullStar
+                cell.fifthStarImage.image = emptyStar
+            case 8...9:
+                cell.firstStarImage.image = fullStar
+                cell.secondStarImage.image = fullStar
+                cell.thirdStarImage.image = fullStar
+                cell.fourthStarImage.image = fullStar
+                cell.fifthStarImage.image = halfStar
+            default:
+                cell.firstStarImage.image = fullStar
+                cell.secondStarImage.image = fullStar
+                cell.thirdStarImage.image = fullStar
+                cell.fourthStarImage.image = fullStar
+                cell.fifthStarImage.image = fullStar
+            }
+            
+            return cell
+            
+        default:
+            return UITableViewCell()
         }
-
+        
     }
-
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     
     // MARK: - Navigation
 
@@ -277,9 +288,10 @@ class MovieDetailTableViewController: UITableViewController {
         if segue.identifier == "touchPosterImage" {
             guard let destination: posterImageViewController = segue.destination as? posterImageViewController else { return }
             
-            destination.imageForZoom = self.posterImageView.image
+            guard let cell: InformationTableViewCell = sender as? InformationTableViewCell else { return }
+            
+            destination.posterImage.image = cell.posterImageView.image
         }
-        
     }
     
 
