@@ -15,11 +15,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="TableTabMovieViewController" customModule="BoxOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="756"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ed8-2I-5pC">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="756"/>
+                                <rect key="frame" x="0.0" y="44" width="390" height="756"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
@@ -98,7 +98,7 @@
                                 </connections>
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Zl8-U9-xqc">
-                                <rect key="frame" x="175" y="358" width="40" height="40"/>
+                                <rect key="frame" x="175" y="402" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="8yF-Yg-hGs"/>
                                     <constraint firstAttribute="height" constant="40" id="OMj-ME-TIQ"/>
@@ -130,7 +130,7 @@
             <objects>
                 <tableViewController id="RrK-pW-0Op" customClass="MovieDetailTableViewController" customModule="BoxOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="250" sectionHeaderHeight="10" sectionFooterHeight="1" id="4NI-NT-oXN">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="756"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="sectionIndexBackgroundColor" systemColor="systemIndigoColor"/>
                         <prototypes>
@@ -656,11 +656,11 @@
             <objects>
                 <viewController id="gjn-hE-DiW" customClass="CollectionTabMovieViewController" customModule="BoxOffice" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b5z-Xw-WWi">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="756"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yCF-za-xU3">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="707"/>
+                                <rect key="frame" x="0.0" y="88" width="390" height="624"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2B0-kD-QNM">
                                     <size key="itemSize" width="128" height="128"/>
@@ -669,7 +669,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" id="EPh-wl-LeS">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="707"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="624"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="color" systemColor="systemGrayColor"/>
                                 </activityIndicatorView>
@@ -766,15 +766,20 @@
         <!--Navigation Controller-->
         <scene sceneID="pUe-5r-wuy">
             <objects>
-                <navigationController id="dRT-Pi-Ykj" sceneMemberID="viewController">
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ZFd-vS-NsU">
+                <navigationController toolbarHidden="NO" id="dRT-Pi-Ykj" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="ZFd-vS-NsU">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" systemColor="systemIndigoColor"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" systemColor="systemBackgroundColor"/>
                         </textAttributes>
+                        <navigationBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                        </navigationBarAppearance>
+                        <navigationBarAppearance key="scrollEdgeAppearance">
+                            <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                        </navigationBarAppearance>
                     </navigationBar>
                     <connections>
                         <segue destination="MAy-wG-jRT" kind="relationship" relationship="rootViewController" id="7vT-gl-DkC"/>
@@ -800,10 +805,12 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Bjl-ws-Vhc">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <color key="tintColor" systemColor="systemBackgroundColor"/>
+                        <color key="tintColor" systemColor="systemIndigoColor"/>
                         <color key="barTintColor" systemColor="systemIndigoColor"/>
                         <color key="selectedImageTintColor" systemColor="systemBackgroundColor"/>
+                        <tabBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                        </tabBarAppearance>
                     </tabBar>
                     <connections>
                         <outlet property="orderSettingButton" destination="XUd-qX-S1z" id="YNe-qX-XDM"/>

@@ -33,6 +33,13 @@ class MovieDetailTableViewController: UITableViewController {
         requestMovieDetailData(id: id)
     }
     
+    func showNoCommentDataAlert() {
+        let alertController: UIAlertController = UIAlertController(title: "데이터 수신 실패", message: "평점 데이터를 수신하는데 실패했습니다.", preferredStyle: .alert)
+        let confirmAction: UIAlertAction = UIAlertAction(title: "confirm", style: .cancel, handler: {(handler) in self.dismiss(animated: true, completion: nil)})
+        alertController.addAction(confirmAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     func requestUserComment() {
         guard let url: URL = URL(string: "https://connect-boxoffice.run.goorm.io/comments?movie_id="+self.id) else { return }
         
@@ -45,6 +52,14 @@ class MovieDetailTableViewController: UITableViewController {
             do {
                 let apiResponse: comments = try JSONDecoder().decode(comments.self, from: data)
                 self.userComments = apiResponse.comments
+                DispatchQueue.main.async {
+                    if self.userComments.count == 0 {
+                        self.showNoCommentDataAlert()
+                    }
+                    else {
+                        self.tableView.reloadData()
+                    }
+                }
             } catch (let err) {
                 print(err.localizedDescription)
             }
@@ -64,7 +79,6 @@ class MovieDetailTableViewController: UITableViewController {
             do {
                 let apiResponse: MovieData = try JSONDecoder().decode(MovieData.self, from: data)
                 self.movieInformationData = apiResponse
-                
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -89,7 +103,7 @@ class MovieDetailTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3 + userComments.count
+        return 4 + userComments.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -201,7 +215,7 @@ class MovieDetailTableViewController: UITableViewController {
         case 4...:
             guard let cell: UserCommentTableViewCell = tableView.dequeueReusableCell(withIdentifier: UserCommentTableViewCell.identifier, for: indexPath) as? UserCommentTableViewCell else { return UITableViewCell() }
             
-            let commentIndex: Int = indexPath.row - 3
+            let commentIndex: Int = indexPath.row - 4
             
             cell.userLabel.text = userComments[commentIndex].writer
             cell.timeLabel.text = userComments[commentIndex].timeString
