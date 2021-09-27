@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19082149270190D5000AADA3 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19082148270190D5000AADA3 /* CommentViewController.swift */; };
 		194A759226FE3CD80092568C /* UserCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194A759126FE3CD80092568C /* UserCommentTableViewCell.swift */; };
 		1956E15926F217D9005A0787 /* posterImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1956E15826F217D9005A0787 /* posterImageViewController.swift */; };
 		197D897426E3BF8A00B1E7B6 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197D897326E3BF8A00B1E7B6 /* TabBarViewController.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		19082148270190D5000AADA3 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CommentViewController.swift; path = BoxOffice/CommentViewController.swift; sourceTree = SOURCE_ROOT; };
 		194A759126FE3CD80092568C /* UserCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCommentTableViewCell.swift; sourceTree = "<group>"; };
 		1956E15826F217D9005A0787 /* posterImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = posterImageViewController.swift; sourceTree = "<group>"; };
 		197D897326E3BF8A00B1E7B6 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				19B2475D26D8C23400DB10D8 /* GlobalFunction.swift */,
 				1997DFC026DA242600CCE172 /* DataRequest.swift */,
 				197D897326E3BF8A00B1E7B6 /* TabBarViewController.swift */,
+				19082148270190D5000AADA3 /* CommentViewController.swift */,
 				19B0EED726E907F30093DB8E /* DetailTableView */,
 				19B0EED626E907C10093DB8E /* CollectionTab */,
 				19B0EED526E907620093DB8E /* TableTab */,
@@ -332,6 +335,7 @@
 				19B2476026D8C6BF00DB10D8 /* MovieListTableViewCell.swift in Sources */,
 				19B2475E26D8C23400DB10D8 /* GlobalFunction.swift in Sources */,
 				194A759226FE3CD80092568C /* UserCommentTableViewCell.swift in Sources */,
+				19082149270190D5000AADA3 /* CommentViewController.swift in Sources */,
 				19DCE64E27004B610032C27E /* SynopsisTableViewCell.swift in Sources */,
 				19B2476226D9092100DB10D8 /* JSONModel.swift in Sources */,
 				1997DFC326DDDCFA00CCE172 /* MovieCollectionViewCell.swift in Sources */,

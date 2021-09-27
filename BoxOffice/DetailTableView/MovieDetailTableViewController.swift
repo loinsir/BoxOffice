@@ -12,12 +12,13 @@ class MovieDetailTableViewController: UITableViewController {
     var id: String!
     
     var movieInformationData: MovieData?
+    var posterImage: UIImage?
     var userComments: [comment] = []
     
     let emptyStar: UIImage = UIImage(named: "ic_star_large") ?? UIImage()
     let halfStar: UIImage = UIImage(named: "ic_star_large_half") ?? UIImage()
     let fullStar: UIImage = UIImage(named: "ic_star_large_full") ?? UIImage()
-    
+
     func layoutTableView() {
         self.tableView.rowHeight = UITableView.automaticDimension
     }
@@ -79,6 +80,12 @@ class MovieDetailTableViewController: UITableViewController {
             do {
                 let apiResponse: MovieData = try JSONDecoder().decode(MovieData.self, from: data)
                 self.movieInformationData = apiResponse
+                
+                let data: Data = try Data(contentsOf: apiResponse.imageURL)
+                if let image: UIImage = UIImage(data: data) {
+                    self.posterImage = image
+                }
+                
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -114,14 +121,9 @@ class MovieDetailTableViewController: UITableViewController {
         case 0:
             guard let cell: InformationTableViewCell = tableView.dequeueReusableCell(withIdentifier: InformationTableViewCell.identifier, for: indexPath) as? InformationTableViewCell else { return UITableViewCell() }
             
-            do {
-                let data: Data = try Data(contentsOf: movieData.imageURL)
-                guard let image: UIImage = UIImage(data: data) else { return UITableViewCell() }
-                cell.posterImageView.image = image
-            } catch (let err) {
-                print(err.localizedDescription)
-            }
+            cell.posterImageView.image = posterImage
             cell.movieTitleLabel.text = movieData.title
+            cell.gradeImage.image = movieData.gradeImage
             cell.openDateLabel.text = movieData.date
             cell.genreTimeLabel.text = movieData.genreAndTime
             cell.reservationRateLabel.text = String(describing: movieData.reservationRate)
@@ -298,8 +300,8 @@ class MovieDetailTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        guard let movieData: MovieData = movieInformationData else { return }
         if segue.identifier == "touchPosterImage" {
-            guard let movieData: MovieData = movieInformationData else { return }
             guard let destination: posterImageViewController = segue.destination as? posterImageViewController else { return }
             
             do {
@@ -310,6 +312,10 @@ class MovieDetailTableViewController: UITableViewController {
                 print(err.localizedDescription)
             }
             
+        } else if segue.identifier == "addComment" {
+            guard let destination: CommentViewController = segue.destination as? CommentViewController else { return }
+            destination.movieTitleToSet = movieData.title
+            destination.gradeImageToSet = movieData.gradeImage
         }
     }
     

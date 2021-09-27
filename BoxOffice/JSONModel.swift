@@ -142,6 +142,21 @@ struct MovieData: Codable {
     var genreAndTime: String {
         return "\(genre) / \(duration)분"
     }
+    
+    var gradeImage: UIImage? {
+        switch grade {
+        case 0:
+            return UIImage(named: "ic_allages")
+        case 12:
+            return UIImage(named: "ic_12")
+        case 15:
+            return UIImage(named: "ic_15")
+        case 19:
+            return UIImage(named: "ic_19")
+        default:
+            return nil
+        }
+    }
 }
 
 /* MARK: - Comment
@@ -179,3 +194,4 @@ struct comment: Codable {
         return String(describing:Date(timeIntervalSince1970: timestamp))
     }
 }
+
