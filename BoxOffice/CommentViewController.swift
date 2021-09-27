@@ -30,10 +30,26 @@ class CommentViewController: UIViewController {
     @IBOutlet weak var starSlider: UISlider!
     @IBOutlet weak var touchOutsideGestureRecognizer: UITapGestureRecognizer!
     
+    var movieIdToSet: String?
     var movieTitleToSet: String?
     var gradeImageToSet: UIImage?
     
-    var currentUserRate: Int?
+    var currentUserRate: Double = 1
+    
+    @IBAction func touchCommentAddButton(_ sender: UIButton) {
+        let alertController: UIAlertController = {
+            let controller: UIAlertController = UIAlertController(title: "필드가 채워지지 않음", message: "모든 입력창에 값을 입력해주시기 바랍니다.", preferredStyle: .alert)
+            controller.addAction(UIAlertAction(title: "확인", style: .cancel, handler: {action in self.dismiss(animated: true, completion: nil)}))
+            return controller
+        }()
+        
+        if let nickname: String = nicknameField.text, let comment: String = commentField.text, let id: String = movieIdToSet {
+            requestAddComment(rating: currentUserRate, writer: nickname, movieID: id, contents: comment, viewController: self)
+        } else {
+            self.show(alertController, sender: self)
+        }
+    }
+    
     
     @IBAction func touchInputFieldOutside(_ sender: UITapGestureRecognizer) {
         nicknameField.endEditing(true)
@@ -122,7 +138,7 @@ class CommentViewController: UIViewController {
         }
         
         
-        ratePointLabel.text = String(describing: currentUserRate)
+        ratePointLabel.text = "\(currentUserRate)"
     }
     
     func layoutCommentField() {
@@ -145,12 +161,18 @@ class CommentViewController: UIViewController {
         gradeImage.image = gradeImageToSet
     }
     
+    func setCommentFieldPlaceholder() {
+        commentField.delegate = self
+        commentField.text = "한줄평을 작성해주세요"
+        commentField.textColor = .lightGray
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setDataFromSegue()
         layoutCommentField()
         initStarSlider()
-
+        setCommentFieldPlaceholder()
         // Do any additional setup after loading the view.
     }
     
@@ -164,4 +186,21 @@ class CommentViewController: UIViewController {
     }
     */
 
+}
+
+extension CommentViewController: UITextViewDelegate {
+
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == .lightGray {
+            textView.text = nil
+            textView.textColor = .black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "한줄평을 작성해주세요"
+            textView.textColor = .lightGray
+        }
+    }
 }

@@ -316,6 +316,7 @@ class MovieDetailTableViewController: UITableViewController {
             guard let destination: CommentViewController = segue.destination as? CommentViewController else { return }
             destination.movieTitleToSet = movieData.title
             destination.gradeImageToSet = movieData.gradeImage
+            destination.movieIdToSet = id
         }
     }
     

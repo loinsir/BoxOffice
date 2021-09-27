@@ -195,3 +195,53 @@ struct comment: Codable {
     }
 }
 
+/* MARK: - Add Comment
+ 
+{
+rating: 10,
+writer: "두근반 세근반",
+movie_id: "5a54c286e8a71d136fb5378e",
+contents:"정말 다섯 번은 넘게 운듯 ᅲᅲᅲ 감동 쩔어요.꼭 보셈 두 번 보셈"
+}
+ */
+
+struct AddCommentBody: Codable {
+    var rating: Double
+    var writer: String
+    var movieID: String
+    var contents: String
+    
+    enum CodingKeys: String, CodingKey {
+        case rating
+        case writer
+        case movieID = "movie_id"
+        case contents
+    }
+}
+
+/* MARK: - Response Add Comment
+ 
+{
+rating: 10,
+timestamp: 1515748870.80631,
+writer: "두근반 세근반",
+movie_id: "5a54c286e8a71d136fb5378e",
+contents:"정말 다섯 번은 넘게 운듯 ᅲᅲᅲ 감동 쩔어요.꼭 보셈 두 번 보셈"
+}
+ */
+
+struct ResponseAddComment: Codable {
+    var rating: Double
+    var timestamp: Double
+    var writer: String
+    var movieID: String
+    var contents: String
+    
+    enum CodingKeys: String, CodingKey {
+        case rating
+        case timestamp
+        case writer
+        case movieID = "movie_id"
+        case contents
+    }
+}
