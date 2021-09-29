@@ -43,11 +43,17 @@ class CommentViewController: UIViewController {
             return controller
         }()
         
-        if let nickname: String = nicknameField.text, let comment: String = commentField.text, let id: String = movieIdToSet {
-            requestAddComment(rating: currentUserRate, writer: nickname, movieID: id, contents: comment, viewController: self)
+        if nicknameField.text?.isEmpty ?? false ||
+            commentField.text == "" ||
+            commentField.text == "한줄평을 작성해주세요" &&
+            commentField.textColor == .lightGray {
+            self.present(alertController, animated: true, completion: nil)
         } else {
-            self.show(alertController, sender: self)
+            if let nickname: String = nicknameField.text, let comment: String = commentField.text, let id: String = movieIdToSet {
+                requestAddComment(rating: currentUserRate, writer: nickname, movieID: id, contents: comment, viewController: self)
+            }
         }
+        
     }
     
     
@@ -175,6 +181,10 @@ class CommentViewController: UIViewController {
         setCommentFieldPlaceholder()
         // Do any additional setup after loading the view.
     }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        <#code#>
+//    }
     
     /*
     // MARK: - Navigation

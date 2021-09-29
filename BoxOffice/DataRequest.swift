@@ -10,6 +10,9 @@ import UIKit
 let DidRequestMovieImageDataNotification: Notification.Name = Notification.Name("DidRequestMovieListData")
 let DidReceiveMovieImageDataNotification: Notification.Name = Notification.Name("DidReceiveMovieListData")
 
+let DidRequestMovieDetailDataNotification: Notification.Name = Notification.Name("DidRequestMovieDetailData")
+let DidReceiveMovieDetailDataNotification: Notification.Name = Notification.Name("DidReceiveMovieDetailData")
+
 enum OrderType: Int {
     case ticketingRate = 0
     case curation = 1
@@ -43,8 +46,11 @@ func requestAddComment(rating: Double, writer: String, movieID: String, contents
     
     guard let url: URL = URL(string: "https://connect-boxoffice.run.goorm.io/comment") else { return }
     
-    let alertController: UIAlertController = UIAlertController(title: "데이터 통신 오류", message: nil, preferredStyle: .alert)
-    alertController.addAction(UIAlertAction(title: "확인", style: .cancel, handler: {action in viewController.dismiss(animated: true, completion: nil)}))
+    let errorAlert: UIAlertController = UIAlertController(title: "데이터 통신 오류", message: nil, preferredStyle: .alert)
+    errorAlert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: {action in viewController.dismiss(animated: true, completion: nil)}))
+    
+    let confirmAlert: UIAlertController = UIAlertController(title: "평점 등록 완료", message: "평점이 등록되었습니다.", preferredStyle: .alert)
+    confirmAlert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: {action in viewController.dismiss(animated: true, completion: {viewController.navigationController?.popViewController(animated: true)})}))
     
     do {
         let bodyData: Data = try JSONEncoder().encode(commentBody)
@@ -56,24 +62,23 @@ func requestAddComment(rating: Double, writer: String, movieID: String, contents
         let dataTask: URLSessionDataTask = URLSession.shared.dataTask(with: request) {(responseData: Data?, response: URLResponse?, err: Error?) in
             if let error = err {
                 print(error.localizedDescription)
-            }
-            
-            guard let httpResponse = response as? HTTPURLResponse else { return }
-            
-            if httpResponse.statusCode != 200 {
                 DispatchQueue.main.async {
-                    alertController.message = "평점 등록에 실패했습니다."
-                    viewController.show(alertController, sender: viewController)
+                    errorAlert.message = "평점 등록에 실패했습니다."
+                    viewController.present(errorAlert, animated: true, completion: nil)
                 }
             }
+            DispatchQueue.main.async {
+                viewController.present(confirmAlert, animated: true, completion: nil)
+            }
 
+            
         }
         
         dataTask.resume()
         
     } catch (let err) {
         print(err.localizedDescription)
-        alertController.message = "데이터 변환에 실패했습니다."
-        viewController.show(alertController, sender: viewController)
+        errorAlert.message = "데이터 변환에 실패했습니다."
+        viewController.present(errorAlert, animated: true, completion: nil)
     }
 }

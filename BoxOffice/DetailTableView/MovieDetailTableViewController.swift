@@ -18,6 +18,18 @@ class MovieDetailTableViewController: UITableViewController {
     let emptyStar: UIImage = UIImage(named: "ic_star_large") ?? UIImage()
     let halfStar: UIImage = UIImage(named: "ic_star_large_half") ?? UIImage()
     let fullStar: UIImage = UIImage(named: "ic_star_large_full") ?? UIImage()
+    
+    @objc func receiveData(_ noti: Notification) {
+        DispatchQueue.main.async {
+            self.hideSpinner()
+        }
+    }
+    
+    @objc func requestData(_ noti: Notification) {
+        DispatchQueue.main.async {
+            self.showSpinner()
+        }
+    }
 
     func layoutTableView() {
         self.tableView.rowHeight = UITableView.automaticDimension
@@ -29,9 +41,12 @@ class MovieDetailTableViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        NotificationCenter.default.addObserver(self, selector: #selector(requestData(_:)), name: DidRequestMovieDetailDataNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: DidReceiveMovieDetailDataNotification, object: nil)
+        
         requestUserComment()
-        layoutTableView()
         requestMovieDetailData(id: id)
+        layoutTableView()
     }
     
     func showNoCommentDataAlert() {
@@ -45,6 +60,8 @@ class MovieDetailTableViewController: UITableViewController {
         guard let url: URL = URL(string: "https://connect-boxoffice.run.goorm.io/comments?movie_id="+self.id) else { return }
         
         let dataTask = URLSession.shared.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
+            
+            NotificationCenter.default.post(name: DidRequestMovieDetailDataNotification, object: nil)
             if let err = error {
                 print(err.localizedDescription)
             }
@@ -53,6 +70,7 @@ class MovieDetailTableViewController: UITableViewController {
             do {
                 let apiResponse: comments = try JSONDecoder().decode(comments.self, from: data)
                 self.userComments = apiResponse.comments
+                NotificationCenter.default.post(name: DidReceiveMovieDetailDataNotification, object: nil)
                 DispatchQueue.main.async {
                     if self.userComments.count == 0 {
                         self.showNoCommentDataAlert()
