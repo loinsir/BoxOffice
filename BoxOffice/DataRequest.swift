@@ -13,6 +13,8 @@ let DidReceiveMovieImageDataNotification: Notification.Name = Notification.Name(
 let DidRequestMovieDetailDataNotification: Notification.Name = Notification.Name("DidRequestMovieDetailData")
 let DidReceiveMovieDetailDataNotification: Notification.Name = Notification.Name("DidReceiveMovieDetailData")
 
+let DidRegisterCommentNotification: Notification.Name = Notification.Name("didRegisterComment")
+
 enum OrderType: Int {
     case ticketingRate = 0
     case curation = 1
@@ -67,6 +69,7 @@ func requestAddComment(rating: Double, writer: String, movieID: String, contents
                     viewController.present(errorAlert, animated: true, completion: nil)
                 }
             }
+            NotificationCenter.default.post(name: DidRegisterCommentNotification, object: nil)
             DispatchQueue.main.async {
                 viewController.present(confirmAlert, animated: true, completion: nil)
             }

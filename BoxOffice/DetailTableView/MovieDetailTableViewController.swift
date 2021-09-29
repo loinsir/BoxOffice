@@ -30,6 +30,12 @@ class MovieDetailTableViewController: UITableViewController {
             self.showSpinner()
         }
     }
+    
+    @objc func registeredComment(_ noti: Notification) {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
 
     func layoutTableView() {
         self.tableView.rowHeight = UITableView.automaticDimension
@@ -43,6 +49,7 @@ class MovieDetailTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         NotificationCenter.default.addObserver(self, selector: #selector(requestData(_:)), name: DidRequestMovieDetailDataNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: DidReceiveMovieDetailDataNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(registeredComment(_:)), name: DidRegisterCommentNotification, object: nil)
         
         requestUserComment()
         requestMovieDetailData(id: id)
@@ -50,8 +57,8 @@ class MovieDetailTableViewController: UITableViewController {
     }
     
     func showNoCommentDataAlert() {
-        let alertController: UIAlertController = UIAlertController(title: "데이터 수신 실패", message: "평점 데이터를 수신하는데 실패했습니다.", preferredStyle: .alert)
-        let confirmAction: UIAlertAction = UIAlertAction(title: "confirm", style: .cancel, handler: {(handler) in self.dismiss(animated: true, completion: nil)})
+        let alertController: UIAlertController = UIAlertController(title: "데이터 수신 실패", message: "데이터를 수신하는데 실패했습니다.", preferredStyle: .alert)
+        let confirmAction: UIAlertAction = UIAlertAction(title: "confirm", style: .cancel, handler: {(handler) in self.navigationController?.popViewController(animated: true)})
         alertController.addAction(confirmAction)
         self.present(alertController, animated: true, completion: nil)
     }
@@ -64,6 +71,9 @@ class MovieDetailTableViewController: UITableViewController {
             NotificationCenter.default.post(name: DidRequestMovieDetailDataNotification, object: nil)
             if let err = error {
                 print(err.localizedDescription)
+                DispatchQueue.main.async {
+                    self.showNoCommentDataAlert()
+                }
             }
             
             guard let data: Data = data else { return }
@@ -81,6 +91,7 @@ class MovieDetailTableViewController: UITableViewController {
                 }
             } catch (let err) {
                 print(err.localizedDescription)
+                self.showNoCommentDataAlert()
             }
         }
         dataTask.resume()
