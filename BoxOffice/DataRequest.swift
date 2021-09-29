@@ -45,6 +45,7 @@ func requestMovieDatas(orderType: OrderType) {
 
 func requestAddComment(rating: Double, writer: String, movieID: String, contents: String, viewController: UIViewController) {
     let commentBody: AddCommentBody = AddCommentBody(rating: rating, writer: writer, movieID: movieID, contents: contents)
+    WriterMemory.shared.writer = writer
     
     guard let url: URL = URL(string: "https://connect-boxoffice.run.goorm.io/comment") else { return }
     

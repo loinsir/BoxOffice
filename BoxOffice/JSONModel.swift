@@ -230,6 +230,14 @@ contents:"정말 다섯 번은 넘게 운듯 ᅲᅲᅲ 감동 쩔어요.꼭 보�
 }
  */
 
+//singleton Object
+class WriterMemory {
+    static let shared = WriterMemory()
+    var writer: String?
+    
+    private init() {}
+}
+
 struct ResponseAddComment: Codable {
     var rating: Double
     var timestamp: Double

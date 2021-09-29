@@ -173,18 +173,21 @@ class CommentViewController: UIViewController {
         commentField.textColor = .lightGray
     }
     
+    func setNicknameMemory() {
+        if let nickname:String = WriterMemory.shared.writer {
+            nicknameField.text = nickname
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setDataFromSegue()
         layoutCommentField()
         initStarSlider()
         setCommentFieldPlaceholder()
+        setNicknameMemory()
         // Do any additional setup after loading the view.
     }
-    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        <#code#>
-//    }
     
     /*
     // MARK: - Navigation
