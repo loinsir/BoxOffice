@@ -41,4 +41,5 @@
       - [X] 영화정보를 가져오거나 한줄평을 등록하는 과정은 첨부한 API 문서를 참고하여 URLSession을 활용하여 서버와 통신합니다.
  
 <img src="https://github.com/loinsir/BoxOffice/blob/main/Simulator%20Screen%20Recording%20-%20iPhone%2012%20-%202021-09-29%20at%2020.04.24.gif?raw=true" alt="app.gif" width=300/>
+
 ~~코드 너무 구리다~~
